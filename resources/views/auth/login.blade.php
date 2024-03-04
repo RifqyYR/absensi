@@ -7,11 +7,6 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div
-                                class="col-md-12 d-lg-none d-md-block bg-login-image d-lg-flex align-content-center align-items-center">
-                                <img src="{{ url('https://placehold.co/600x400') }}" alt="logo aplikasi"
-                                    class="ratio ratio-16x9 img-fluid mx-auto d-block mt-5" style="width: 45vw; height: 10vh; margin-bottom: -7vh" />
-                            </div>
                             <div class="col-lg-6 d-none d-lg-block bg-login-image d-lg-flex align-content-center align-items-center"
                                 style="border-right: 2px solid #FFB0B0 !important;">
                                 <img src="{{ url('https://placehold.co/600x400') }}" alt="logo aplikasi"
@@ -20,7 +15,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <h1 style="color: #0C2D57 !important;" class="fw-bold fs-5 mb-3 text-center">
-                                        Selamat Datang
+                                        Selamat Datang di Aplikasi SiMonas
                                     </h1>
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf

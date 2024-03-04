@@ -31,11 +31,7 @@
 if (Request::is('login')) {
         echo 'style="background-image: url(\'bg.jpg\'); background-size: cover; background-repeat: no-repeat; height: 100vh;"';
     } @endphp>
-    <div id="app">
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    @yield('content')
 </body>
 
 </html>

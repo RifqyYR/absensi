@@ -17,10 +17,8 @@
                 <img class="img-profile rounded-circle" src="{{ url('backend/img/undraw_profile.svg') }}">
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                {{-- <a class="dropdown-item" href="{{ url('/ganti-password/' . Auth::user()->uuid) }}">
-                    Ubah Password
-                </a> --}}
                 <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger"></i>
                     Keluar
                 </a>
             </div>
