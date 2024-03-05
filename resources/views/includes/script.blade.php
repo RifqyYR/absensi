@@ -12,5 +12,31 @@
 <script src="{{ url('backend/js/sb-admin-2.js') }}"></script>
 <script src="{{ url('backend/js/chart-area-demo.js') }}"></script>
 
+{{-- DataTables --}}
+<script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
+{{-- <script src="{{ url('backend/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script> --}}
+
 {{-- Toastr --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @if (session()->has('success'))
+        toastr.success('{{ session('success') }}', 'BERHASIL!');
+    @elseif (session()->has('error'))
+        toastr.error('{{ session('error') }}', 'GAGAL!');
+    @endif
+
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+
+    function hapusDataOrangTua(id) {
+        const link = document.getElementById('deleteParentDataLink');
+        link.href = "/data-orang-tua/hapus/" + id;
+    }
+
+    function validateInput(input) {
+        input.value = input.value.replace(/\D/g, '');
+        input.value = input.value.replace(/^0+/, '');
+    }
+</script>

@@ -14,7 +14,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+    <li class="nav-item {{ Route::is('home') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="{{ url('/') }}">
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span>
@@ -42,10 +42,10 @@
         </a>
     </li>
 
-    <li class="nav-item {{ Request::is('/orang-tua') ? 'active' : '' }}">
-        <a class="nav-link nav-link-item" href="{{ url('/') }}">
+    <li class="nav-item {{ Route::is('parent-data') ? 'active' : '' }}">
+        <a class="nav-link nav-link-item" href="{{ route('parent-data') }}">
             <i class="fas fa-fw fa-user"></i>
-            <span>Data Orang Tua</span>
+            <span>Data Orang Tua Siswa</span>
         </a>
     </li>
 

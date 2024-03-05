@@ -6,6 +6,9 @@
 
 <link href="{{ url('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
+{{-- DataTables --}}
+<link href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" rel="stylesheet">
+
 <!-- Custom fonts for this template-->
 <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -16,6 +19,16 @@
 {{-- Toastr --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
-{{-- Editable Select --}}
-<link href="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.css"
-    rel="stylesheet">
+<style>
+    .btn-dark-blue {
+        background-color: #0C2D57 !important;
+        border: #0C2D57 !important;
+        color: #ffffff !important;
+    }
+
+    .btn-orange {
+        background-color: #FC6736 !important;
+        border: #FC6736 !important;
+        color: #ffffff !important;
+    }
+</style>

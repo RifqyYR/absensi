@@ -14,6 +14,7 @@ class StudentParent extends Model
         'name',
         'username',
         'password',
+        'phone_number'
     ];
 
     public static function booted()
@@ -25,7 +26,7 @@ class StudentParent extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'parent_id', 'id');
     }
 
     protected $casts = [
