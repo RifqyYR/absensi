@@ -43,7 +43,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top" style="background: #149063 !important;">
+    <a class="scroll-to-top rounded" href="#page-top">
         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
             <style>
                 svg {
