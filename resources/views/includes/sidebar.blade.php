@@ -35,8 +35,8 @@
         </div>
     </li>
 
-    <li class="nav-item {{ Request::is('/siswa') ? 'active' : '' }}">
-        <a class="nav-link nav-link-item" href="{{ url('/') }}">
+    <li class="nav-item {{ Route::is('student-data') ? 'active' : '' }}">
+        <a class="nav-link nav-link-item" href="{{ route('student-data') }}">
             <i class="fas fa-fw fa-graduation-cap"></i>
             <span>Data Siswa</span>
         </a>

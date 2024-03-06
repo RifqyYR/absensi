@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id');
             $table->string('name');
             $table->integer('generation');
+            $table->date('born_date');
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('student_parents');

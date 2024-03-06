@@ -35,6 +35,11 @@
         link.href = "/data-orang-tua/hapus/" + id;
     }
 
+    function hapusDataSiswa(id) {
+        const link = document.getElementById('deleteStudentDataLink');
+        link.href = "/data-siswa/hapus/" + id;
+    }
+
     function validateInput(input) {
         input.value = input.value.replace(/\D/g, '');
         input.value = input.value.replace(/^0+/, '');

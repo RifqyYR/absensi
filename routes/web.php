@@ -27,3 +27,13 @@ Route::group(['prefix' => 'data-orang-tua'], function () {
     Route::post('/edit/{uuid}', [\App\Http\Controllers\StudentParentController::class, 'editProcess'])->name('parent-data.edit-process');
     Route::get('/hapus/{uuid}', [\App\Http\Controllers\StudentParentController::class, 'delete'])->name('parent-data.delete');
 });
+
+
+Route::group(['prefix' => 'data-siswa'], function () {
+  Route::get('/', [App\Http\Controllers\StudentController::class, 'index'])->name('student-data');
+  Route::get('/tambah', [App\Http\Controllers\StudentController::class, 'create'])->name('student-data.create');
+  Route::post('/tambah', [App\Http\Controllers\StudentController::class, 'create'])->name('student-data.store');
+  Route::get('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student-data.edit');
+  Route::post('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'editProcess'])->name('student-data.edit-process');
+  Route::post('/hapus/{uuid}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student-data.delete');
+});
