@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-class Student extends Model
+class ViolationPoint extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function parent()
+    public static function booted()
     {
-        return $this->belongsTo(StudentParent::class);
+        static::creating(function ($model) {
+            $model->uuid = Uuid::uuid7();
+        });
     }
-
-    
 }

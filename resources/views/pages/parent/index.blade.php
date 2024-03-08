@@ -5,7 +5,8 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h4 mb-0 text-black">Data Orang Tua Siswa</h1>
-            <a href="{{ route('parent-data.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-dark-blue"><i
+            <a href="{{ route('parent-data.create') }}"
+                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-dark-blue"><i
                     class="fas fa-user fa-sm text-white"></i> Tambah Data</a>
         </div>
 
@@ -40,8 +41,8 @@
                             <td>{{ $item->phone_number == null ? 'Tidak Ada' : '62' . $item->phone_number }}</td>
                             <td>
                                 @if ($item->students->count() > 0)
-                                    @foreach ($item->student as $child)
-                                        {{ $item->students }}
+                                    @foreach ($item->students as $child)
+                                        {{ $loop->last ? $child->name : $child->name . ', ' }}
                                     @endforeach
                                 @else
                                     Tidak ada
@@ -50,11 +51,12 @@
                             <td>
                                 {{ $item->updated_at->format('d/m/Y H:i:s') }}
                             </td>
-                            <td>
+                            <td class="text-nowrap">
                                 <div class="d-flex flex-column">
                                     <div class="align-items-center d-grip gap-4">
                                         {{-- Edit Button --}}
-                                        <a href="{{ route('parent-data.edit', $item->uuid) }}"><button type="button" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('parent-data.edit', $item->uuid) }}"><button type="button"
+                                                class="btn btn-sm btn-warning">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                     viewBox="0 0 512 512">
                                                     <style>
@@ -70,7 +72,8 @@
 
                                         {{-- Delete Button --}}
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                            data-target="#deleteParentDataModal" onclick="hapusDataOrangTua('{{ $item->uuid }}')">
+                                            data-target="#deleteParentDataModal"
+                                            onclick="hapusDataOrangTua('{{ $item->uuid }}')">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                                 <style>
                                                     svg {
@@ -91,8 +94,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteParentDataModal" tabindex="-1" role="dialog" aria-labelledby="parent-data-modal-label"
-        aria-hidden="true">
+    <div class="modal fade" id="deleteParentDataModal" tabindex="-1" role="dialog"
+        aria-labelledby="parent-data-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

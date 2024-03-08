@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreParentStudentDataRequest extends FormRequest
+class StoreStudentDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,6 +12,13 @@ class StoreParentStudentDataRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function messages()
+    {
+        return [
+            'max' => ':attribute tidak boleh lebih dari 1MB'
+        ];
     }
 
     /**
@@ -22,16 +29,12 @@ class StoreParentStudentDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required',
-            'phone_number' => 'nullable',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute harus diisi',
-            'unique' => ':attribute sudah terdaftar',
+            'name' => 'required',
+            'generation' => 'required|numeric',
+            'born_date' => 'required|date',
+            'parent_id' => 'required',
+            'gender' => 'required',
+            'image' => 'nullable|max:1024|mimes:jpg,jpeg,png,gif'
         ];
     }
 }

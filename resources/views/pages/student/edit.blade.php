@@ -8,39 +8,87 @@
 
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form action="{{ route('parent-data.edit-process', $parent->uuid) }}" method="POST">
+                <form action="{{ route('student-data.edit-process', $student->uuid) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="nama">Nama Orang Tua</label>
-                        <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
-                            name="nama" value="{{ $parent->name }}" required autofocus />
-                        @error('nama')
+                        <label for="name">Nama Siswa*</label>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                            name="name" value="{{ $student->name }}" required autofocus />
+                        @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                            name="username" value="{{ $parent->username }}" required autofocus />
-                        @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone_number">Nomor Telepon</label>
-                        <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input id="phone_number" type="text"
-                                class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
-                                value="{{ $parent->phone_number }}" oninput="validateInput(this)" autofocus />
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="generation">Angkatan*</label>
+                            <input id="generation" type="number"
+                                class="form-control @error('generation') is-invalid @enderror" name="generation"
+                                value="{{ $student->generation }}" required autofocus min="2000" />
+                            @error('generation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        @error('phone_number')
+
+                        <div class="form-group col-md-5">
+                            <label for="born_date">Tanggal Lahir*</label>
+                            <input id="born_date" type="date"
+                                class="form-control @error('born_date') is-invalid @enderror" name="born_date"
+                                value="{{ $student->born_date }}" required autofocus />
+                            @error('born_date')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-5 mb-0">
+                            <label for="gender">Jenis Kelamin*</label>
+                            <div class="form-check py-1 px-0">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderL"
+                                        value="L" {{ $student->gender == 'L' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="genderL">Laki-Laki</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderP"
+                                        value="P" {{ $student->gender == 'P' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="genderP">Perempuan</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parent_id">Orang Tua*</label>
+                        <select class="custom-select select2 large-select2 @error('parent_id') is-invalid @enderror"
+                            name="parent_id">
+                            <option value="{{ $student->parent->id }}" selected hidden>
+                                {{ $student->parent->name }}</option>
+                            @foreach ($parents as $item)
+                                @if ($item->id == $student->parent->id)
+                                    @continue
+                                @endif
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('parent_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Foto</label>
+                        <input id="image" type="file" class="form-control @error('image') is-invalid @enderror"
+                            name="image" value="{{ $student->image }}" autofocus accept="image/*" />
+                        @error('image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

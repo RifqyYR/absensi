@@ -11,21 +11,10 @@
                 <form action="/data-orang-tua/tambah" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="nama">Nama Orang Tua</label>
+                        <label for="nama">Nama Orang Tua*</label>
                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
                             name="nama" value="{{ old('nama') }}" required autofocus />
                         @error('nama')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                            name="username" value="{{ old('username') }}" required autofocus />
-                        @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

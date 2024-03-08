@@ -17,7 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id');
             $table->string('name');
             $table->integer('generation');
+            $table->integer('violation_points');
+            $table->enum('gender', ['L', 'P']);
             $table->date('born_date');
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('student_parents');

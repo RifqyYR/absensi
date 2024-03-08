@@ -19,6 +19,8 @@
 {{-- Toastr --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
     @if (session()->has('success'))
         toastr.success('{{ session('success') }}', 'BERHASIL!');
@@ -28,7 +30,12 @@
 
     $(document).ready(function() {
         $('#dataTable').DataTable();
+        $('.select2').select2({
+            width: '100%'
+        });
     });
+
+    $('.editable-select').editableSelect();
 
     function hapusDataOrangTua(id) {
         const link = document.getElementById('deleteParentDataLink');

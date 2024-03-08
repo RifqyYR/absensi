@@ -16,9 +16,9 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Username</th>
-                        <th>Nomor Telepon</th>
-                        <th>Anak</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Angkatan</th>
+                        <th>Orang Tua</th>
                         <th>Tanggal Diubah</th>
                         <th>Aksi</th>
                     </tr>
@@ -26,29 +26,25 @@
                 <tfoot>
                     <tr>
                         <th>Nama</th>
-                        <th>Username</th>
-                        <th>Nomor Telepon</th>
-                        <th>Anak</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Angkatan</th>
+                        <th>Orang Tua</th>
                         <th>Tanggal Diubah</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @if (count($students) > 0)
-                        @foreach ($parents as $item)
+                        @foreach ($students as $item)
                             <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->username }}</td>
-                                <td>{{ $item->phone_number == null ? 'Tidak Ada' : '62' . $item->phone_number }}</td>
                                 <td>
-                                    @if ($item->students->count() > 0)
-                                        @foreach ($item->student as $child)
-                                            {{ $item->students }}
-                                        @endforeach
-                                    @else
-                                        Tidak ada
-                                    @endif
+                                    <a href="{{ route('student-data.detail', $item->uuid) }}" class="custom-link">
+                                        {{ $item->name }}
+                                    </a>
                                 </td>
+                                <td>{{ Carbon\Carbon::parse($item->born_date)->format('d F Y') }}</td>
+                                <td>{{ $item->generation }}</td>
+                                <td>{{ $item->parent->name }}</td>
                                 <td>
                                     {{ $item->updated_at->format('d/m/Y H:i:s') }}
                                 </td>
@@ -56,7 +52,7 @@
                                     <div class="d-flex flex-column">
                                         <div class="align-items-center d-grip gap-4">
                                             {{-- Edit Button --}}
-                                            <a href="{{ route('parent-data.edit', $item->uuid) }}"><button type="button"
+                                            <a href="{{ route('student-data.edit', $item->uuid) }}"><button type="button"
                                                     class="btn btn-sm btn-warning">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                         viewBox="0 0 512 512">

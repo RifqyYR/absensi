@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreParentStudentDataRequest;
 use App\Models\StudentParent;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class StudentParentController extends Controller
             DB::transaction(function () use ($data, $password) {
                 StudentParent::create([
                     'name' => $data['nama'],
-                    'username' => strtolower($data['username']),
+                    'username' => $this->getUniqueUsername(strtolower($data['nama'])),
                     'phone_number' => $data['phone_number'],
                     'password' => $password,
                 ]);
@@ -44,7 +45,22 @@ class StudentParentController extends Controller
         }
     }
 
-    public function delete(String $uuid)
+    protected function getUniqueUsername($name)
+    {
+        $nameParts = explode(" ", $name);
+        $nameParts = array_filter($nameParts);
+        $username = implode("", $nameParts);
+        $i = 1;
+
+        while (StudentParent::where('username', $username)->exists()) {
+            $username .= $i;
+            $i++;
+        }
+
+        return $username;
+    }
+
+    public function delete(string $uuid)
     {
         try {
             DB::transaction(function () use ($uuid) {
@@ -59,13 +75,13 @@ class StudentParentController extends Controller
         }
     }
 
-    public function edit(String $uuid)
+    public function edit(string $uuid)
     {
         $parent = StudentParent::where('uuid', $uuid)->first();
         return view('pages.parent.edit', ['parent' => $parent]);
     }
 
-    public function editProcess(Request $request, String $uuid)
+    public function editProcess(Request $request, string $uuid)
     {
         $this->validate($request, [
             'nama' => 'required',

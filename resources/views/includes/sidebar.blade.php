@@ -35,17 +35,17 @@
         </div>
     </li>
 
-    <li class="nav-item {{ Route::is('student-data') ? 'active' : '' }}">
-        <a class="nav-link nav-link-item" href="{{ route('student-data') }}">
-            <i class="fas fa-fw fa-graduation-cap"></i>
-            <span>Data Siswa</span>
-        </a>
-    </li>
-
     <li class="nav-item {{ Route::is('parent-data') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="{{ route('parent-data') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Data Orang Tua Siswa</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ Route::is('student-data') ? 'active' : '' }}">
+        <a class="nav-link nav-link-item" href="{{ route('student-data') }}">
+            <i class="fas fa-fw fa-graduation-cap"></i>
+            <span>Data Siswa</span>
         </a>
     </li>
 
