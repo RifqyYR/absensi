@@ -7,8 +7,8 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
-                <div class="font id-card">
+            <div class="col-md-4">
+                <div class="font id-card m-auto">
                     <div class="top">
                         <img src="{{ $student->image != null ? asset('storage/uploads/images/' . $student->image) : url('default.png') }}">
                     </div>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-header">
                         <h6 class="text-black fw-bold">Data Siswa</h6>
@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <p><strong>Nama:</strong> {{ $student->name }}</p>
                         <p><strong>Usia:</strong> {{ Carbon\Carbon::parse($student->born_date)->age }} Tahun</p>
-                        <p><strong>Tanggal Lahir:</strong> {{ Carbon\Carbon::parse($student->born_date)->format('d-m-Y') }}
+                        <p><strong>Tanggal Lahir:</strong> {{ Carbon\Carbon::parse($student->born_date)->locale('id')->isoFormat('D MMMM Y') }}
                         </p>
                         <p><strong>Orang Tua:</strong> {{ $student->parent->name }}</p>
                         <p><strong>Jenis Kelamin:</strong> {{ $student->gender == 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>

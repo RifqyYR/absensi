@@ -10,7 +10,10 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ url('backend/js/sb-admin-2.js') }}"></script>
-<script src="{{ url('backend/js/chart-area-demo.js') }}"></script>
+
+@if (Route::is('home'))
+    <script src="{{ url('backend/js/chart-area-demo.js') }}"></script>
+@endif
 
 {{-- DataTables --}}
 <script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
@@ -29,13 +32,15 @@
     @endif
 
     $(document).ready(function() {
+        @if (Route::is('absence*'))
+            setInterval(updateClock, 1000)
+        @endif
         $('#dataTable').DataTable();
-        $('.select2').select2({
-            width: '100%'
-        });
     });
 
-    $('.editable-select').editableSelect();
+    $('.select2').select2({
+        width: '100%'
+    });
 
     function hapusDataOrangTua(id) {
         const link = document.getElementById('deleteParentDataLink');
@@ -50,5 +55,11 @@
     function validateInput(input) {
         input.value = input.value.replace(/\D/g, '');
         input.value = input.value.replace(/^0+/, '');
+    }
+
+    function updateClock() {
+        var now = new Date();
+        var d = now.toLocaleTimeString();
+        document.getElementById('liveClock').innerHTML = d;
     }
 </script>

@@ -147,4 +147,22 @@
             transform: scale(1.5);
         }
     }
+
+    .card-absence-on-time {
+        display: flex;
+        align-items: center;
+        border-radius: 100px;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        background: #367E18;
+        color: white;
+    }
+
+    .card-absence-late {
+        display: flex;
+        align-items: center;
+        border-radius: 100px;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        background: #FF0000;
+        color: white;
+    }
 </style>

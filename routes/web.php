@@ -39,4 +39,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'editProcess'])->name('student-data.edit-process');
         Route::get('/hapus/{uuid}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student-data.delete');
     });
+
+    // Absence
+    Route::group(['prefix' => 'absensi'], function () {
+        // Masuk
+        Route::get('/masuk', [App\Http\Controllers\AbsenceController::class, 'indexIn'])->name('absence.in');
+        Route::post('/masuk', [App\Http\Controllers\AbsenceController::class, 'absenceIn'])->name('absence.in.process');
+
+        // Pulang
+        Route::get('/pulang', [App\Http\Controllers\AbsenceController::class, 'indexOut'])->name('absence.out');
+    });
 });

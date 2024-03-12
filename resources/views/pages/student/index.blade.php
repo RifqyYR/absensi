@@ -42,7 +42,7 @@
                                         {{ $item->name }}
                                     </a>
                                 </td>
-                                <td>{{ Carbon\Carbon::parse($item->born_date)->format('d F Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($item->born_date)->locale('id')->isoFormat('D MMMM Y') }}</td>
                                 <td>{{ $item->generation }}</td>
                                 <td>{{ $item->parent->name }}</td>
                                 <td>

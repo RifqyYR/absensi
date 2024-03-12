@@ -21,7 +21,7 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ Route::is('absence*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
@@ -29,20 +29,20 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">Masuk</a>
-                <a class="collapse-item" href="cards.html">Pulang</a>
+                <a class="collapse-item" href="{{ route('absence.in') }}">Masuk</a>
+                <a class="collapse-item" href="{{ route('absence.out') }}">Pulang</a>
             </div>
         </div>
     </li>
 
-    <li class="nav-item {{ Route::is('parent-data') ? 'active' : '' }}">
+    <li class="nav-item {{ Route::is('parent-data*') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="{{ route('parent-data') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Data Orang Tua Siswa</span>
         </a>
     </li>
 
-    <li class="nav-item {{ Route::is('student-data') ? 'active' : '' }}">
+    <li class="nav-item {{ Route::is('student-data*') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="{{ route('student-data') }}">
             <i class="fas fa-fw fa-graduation-cap"></i>
             <span>Data Siswa</span>
