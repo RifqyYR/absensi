@@ -40,7 +40,7 @@ class AbsenceController extends Controller
             if ($currentHour < 6 || ($currentHour == 6 && $currentMinute < 30)) {
                 return redirect()->route('absence.in')->with('error', 'Absensi hanya dapat dilakukan setelah pukul 06:30');
             }
-    
+
             $status = 'PRESENT';
             if ($currentHour > 8 || ($currentHour == 8 && $currentMinute > 30)) {
                 $status = 'LATE';
@@ -80,5 +80,49 @@ class AbsenceController extends Controller
     public function indexOut()
     {
         return view('pages.absence.out');
+    }
+
+    public function history()
+    {
+        $absences = Absence::with('student')
+            ->selectRaw('date(datetime) as date, student_id')
+            ->orderBy('datetime', 'desc')
+            ->get()
+            ->groupBy('date');
+
+        return view('pages.absence.history', [
+            'absences' => $absences,
+        ]);
+    }
+
+    public function detailHistory($date)
+    {
+        $absences = Absence::with('student')
+            ->whereDate('datetime', $date)
+            ->orderBy('datetime', 'asc')
+            ->get();
+
+        return view('pages.absence.detail-history', [
+            'absences' => $absences,
+        ]);
+    }
+
+    public function updateStatus(Request $request)
+    {
+        try {
+            $request->validate([
+                'ids' => 'required',
+                'status' => 'required|string',
+            ]);
+    
+            // Update the absences
+            Absence::whereIn('id', $request->ids)->update(['status' => $request->status]);
+        } catch (\Exception $e) {
+            // Redirect back with an error message
+            return redirect()->back()->with('error', 'Gagal mengubah data: ' . $e->getMessage());
+        }
+    
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Berhasil mengubah status');
     }
 }

@@ -8,7 +8,6 @@ use App\Models\StudentParent;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;

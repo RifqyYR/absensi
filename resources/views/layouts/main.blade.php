@@ -9,7 +9,10 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>Absensi</title>
+    <title>SiMonas | Sistem Monitoring Absensi</title>
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
 
     @include('includes.style')
 

@@ -49,4 +49,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Pulang
         Route::get('/pulang', [App\Http\Controllers\AbsenceController::class, 'indexOut'])->name('absence.out');
     });
+
+    // Absence History
+    Route::group(['prefix' => 'riwayat-absensi'], function () {
+        Route::get('/', [App\Http\Controllers\AbsenceController::class, 'history'])->name('absence-history');
+        Route::get('/{date}', [App\Http\Controllers\AbsenceController::class, 'detailHistory'])->name('absence-history.detail');
+        Route::post('/update', [App\Http\Controllers\AbsenceController::class, 'updateStatus'])->name('absence-history.update');
+        Route::get('/hapus/{uuid}', [App\Http\Controllers\AbsenceController::class, 'deleteHistory'])->name('absence-history.delete');
+    });
 });
