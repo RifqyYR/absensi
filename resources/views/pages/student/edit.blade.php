@@ -85,6 +85,17 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="violation_points">Poin Pelanggaran</label>
+                        <input id="violation_points" type="number" class="form-control @error('violation_points') is-invalid @enderror"
+                            name="violation_points" value="{{ $student->violation_points }}" required autofocus />
+                        @error('violation_points')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="image">Foto</label>
                         <input id="image" type="file" class="form-control @error('image') is-invalid @enderror"
                             name="image" value="{{ $student->image }}" autofocus accept="image/*" />

@@ -57,4 +57,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/update', [App\Http\Controllers\AbsenceController::class, 'updateStatus'])->name('absence-history.update');
         Route::get('/hapus/{uuid}', [App\Http\Controllers\AbsenceController::class, 'deleteHistory'])->name('absence-history.delete');
     });
+
+    // Student Violation Points
+    Route::group(['prefix' => 'pelanggaran-siswa'], function () {
+        Route::post('/', [App\Http\Controllers\StudentController::class, 'violation'])->name('student-violation');
+    });
 });

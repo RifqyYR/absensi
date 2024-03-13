@@ -53,13 +53,6 @@
         </a>
     </li>
 
-    <li class="nav-item {{ Route::is('violation') ? 'active' : '' }}">
-        <a class="nav-link nav-link-item" href="{{ route('absence-history') }}">
-            <i class="fas fa-fw fa-times-circle"></i>
-            <span>Pelanggaran Siswa</span>
-        </a>
-    </li>
-
     <hr class="sidebar-divider my-0">
 
     <!-- Sidebar Toggler (Sidebar) -->

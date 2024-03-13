@@ -28,9 +28,21 @@
         color: #ffffff !important;
     }
 
+    .btn-dark-blue:hover {
+        background-color: #103c77 !important;
+        border: #103c77 !important;
+        color: #ffffff !important;
+    }
+
     .btn-orange {
         background-color: #FC6736 !important;
         border: #FC6736 !important;
+        color: #ffffff !important;
+    }
+
+    .btn-orange:hover {
+        background-color: #e15728 !important;
+        border: #e15728 !important;
         color: #ffffff !important;
     }
 

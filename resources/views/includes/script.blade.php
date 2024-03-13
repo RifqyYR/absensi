@@ -38,6 +38,12 @@
         $('#dataTable').DataTable();
     });
 
+    $('#studentViolationModal').on('shown.bs.modal', function(e) {
+        $('.select2').select2({
+            width: '100%'
+        });
+    });
+
     $('.select2').select2({
         width: '100%'
     });

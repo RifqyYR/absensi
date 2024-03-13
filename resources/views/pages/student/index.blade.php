@@ -5,9 +5,14 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h4 mb-0 text-black">Data Siswa</h1>
-            <a href="{{ route('student-data.create') }}"
-                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-dark-blue"><i
-                    class="fas fa-graduation-cap fa-sm text-white"></i> Tambah Data</a>
+            <div class="buttons">
+                <button type="button" data-toggle="modal" data-target="#studentViolationModal"
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-orange"><i
+                        class="fas fa-times-circle fa-sm text-white"></i> Form Pelanggaran</button>
+                <a href="{{ route('student-data.create') }}"
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-dark-blue ms-1"><i
+                        class="fas fa-graduation-cap fa-sm text-white"></i> Tambah Data</a>
+            </div>
         </div>
 
         <!-- DataTales Example -->
@@ -93,6 +98,7 @@
         </div>
     </div>
 
+    {{-- Delete Student Data Modal --}}
     <div class="modal fade" id="deleteStudentDataModal" tabindex="-1" role="dialog"
         aria-labelledby="student-data-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -113,6 +119,63 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    {{-- Student Violation Modal --}}
+    <div class="modal fade" id="studentViolationModal" role="dialog" aria-labelledby="student-violation-modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{ route('student-violation') }}" method="post">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="student-violation-modal-label">Form Pelanggaran Siswa
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="student_id">Nama Siswa</label>
+                            <select class="form-select select2 large-select2 @error('student_id') is-invalid @enderror"
+                                name="student_id" id="student_id">
+                                <option value="" selected disabled></option>
+                                @foreach ($students as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('student_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="violation_id">Pelanggaran</label>
+                            <select class="form-select select2 large-select2 @error('violation_id') is-invalid @enderror"
+                                name="violation_id" id="violation_id">
+                                <option value="" selected disabled></option>
+                                @foreach ($violations as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('violation_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="btn-delete">Batal</button>
+                        <button type="submit" class="btn btn-orange">Kirim</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

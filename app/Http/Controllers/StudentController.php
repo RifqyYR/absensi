@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStudentDataRequest;
 use App\Models\Student;
 use App\Models\StudentParent;
+use App\Models\ViolationPoint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -17,8 +18,10 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
+        $violations = ViolationPoint::all();
         return view('pages.student.index', [
             'students' => $students,
+            'violations' => $violations,
         ]);
     }
 
@@ -141,6 +144,7 @@ class StudentController extends Controller
                     'generation' => $data['generation'],
                     'born_date' => $data['born_date'],
                     'parent_id' => $data['parent_id'],
+                    'violation_points' => $data['violation_points'],
                     'image' => $fileName != '' ? $fileName : $student->image,
                 ]);
             });
@@ -159,5 +163,25 @@ class StudentController extends Controller
         return view('pages.student.detail', [
             'student' => $student,
         ]);
+    }
+
+    public function violation(Request $request)
+    {
+        $data = $request->all();
+        $student = Student::where('id', $data['student_id'])->first();
+        $violation = ViolationPoint::where('id', $data['violation_id'])->first();
+        try {
+            DB::transaction(function () use ($student, $violation) {
+                $student->update([
+                    'violation_points' => $student->violation_points + $violation->points,
+                ]);
+            });
+
+            return redirect()->route('student-data')->with('success', 'Berhasil mengirim data');
+        } catch (\Throwable $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal menambahkan pelanggaran: ' . $e->getMessage());
+        }
     }
 }
