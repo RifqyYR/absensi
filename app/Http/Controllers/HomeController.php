@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absence;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        $students = Student::all();
+        $todayAbsences = Absence::whereDate('datetime', now())->get();
+        
+        return view('pages.home', [
+            'students' => $students,
+            'absences' => $todayAbsences,
+        ]);
     }
 }

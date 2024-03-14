@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/data-absensi', [App\Http\Controllers\AbsenceController::class, 'getAbsencesByDate'])->name('home.absences');
 
     // Parent
     Route::group(['prefix' => 'data-orang-tua'], function () {

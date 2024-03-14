@@ -115,14 +115,20 @@ class AbsenceController extends Controller
                 'status' => 'required|string',
             ]);
     
-            // Update the absences
             Absence::whereIn('id', $request->ids)->update(['status' => $request->status]);
         } catch (\Exception $e) {
-            // Redirect back with an error message
             return redirect()->back()->with('error', 'Gagal mengubah data: ' . $e->getMessage());
         }
     
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Berhasil mengubah status');
+    }
+
+    public function getAbsencesByDate()
+    {
+        $absences = Absence::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->get();
+
+    return response()->json($absences);
     }
 }
