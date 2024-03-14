@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->get();
+        $todayAbsences = Absence::where('category', 'IN')->whereDate('datetime', now())->get();
         
         return view('pages.home', [
             'students' => $students,

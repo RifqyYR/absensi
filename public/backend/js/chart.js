@@ -115,6 +115,7 @@ $(document).ready(function () {
                             },
                         },
                         y: {
+                            min: 0,
                             ticks: {
                                 maxTicksLimit: 5,
                                 padding: 10,

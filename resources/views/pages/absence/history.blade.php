@@ -11,13 +11,15 @@
                 <thead>
                     <tr>
                         <th>Tanggal</th>
-                        <th>Jumlah Absensi</th>
+                        <th>Jumlah Absensi Masuk</th>
+                        <th>Jumlah Absensi Pulang</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Tanggal</th>
-                        <th>Jumlah Absensi</th>
+                        <th>Jumlah Absensi Masuk</th>
+                        <th>Jumlah Absensi Pulang</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -28,7 +30,8 @@
                                     {{ Carbon\Carbon::parse($date)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                 </a>
                             </td>
-                            <td>{{ count($absencesForDate) }}</td>
+                            <td>{{ count($absencesForDate['IN']) }}</td>
+                            <td>{{ count($absencesForDate['OUT']) }}</td>
                         </tr>
                     @endforeach
                 </tbody>

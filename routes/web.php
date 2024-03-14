@@ -49,6 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Pulang
         Route::get('/pulang', [App\Http\Controllers\AbsenceController::class, 'indexOut'])->name('absence.out');
+        Route::post('/pulang', [App\Http\Controllers\AbsenceController::class, 'absenceOut'])->name('absence.out.process');
     });
 
     // Absence History

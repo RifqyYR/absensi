@@ -16,6 +16,7 @@ class Absence extends Model
         'time',
         'datetime',
         'status',
+        'category',
     ];
 
     public static function booted()

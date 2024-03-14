@@ -23,6 +23,7 @@
                             <th>Nama</th>
                             <th>Waktu</th>
                             <th>Status</th>
+                            <th>Kategori</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                             <th>Nama</th>
                             <th>Waktu</th>
                             <th>Status</th>
+                            <th>Kategori</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -51,6 +53,13 @@
                                         <span class="badge bg-info">Izin</span>
                                     @elseif($item->status == 'ABSENT')
                                         <span class="badge bg-secondary">Absen</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->category == 'IN')
+                                        Masuk
+                                    @else
+                                        Pulang                                        
                                     @endif
                                 </td>
                                 <td class="action-col">

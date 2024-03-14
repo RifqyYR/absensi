@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->dateTime('datetime');
+            $table->enum('category', ["IN", "OUT"])->default('IN');
             $table->enum('status', ["PRESENT", "LATE", "ABSENT", "PERMIT"])->default('ABSENT');
             $table->timestamps();
 
