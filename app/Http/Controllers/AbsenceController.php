@@ -12,7 +12,7 @@ class AbsenceController extends Controller
     public function indexIn()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->get();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->get();
 
         return view('pages.absence.index-in', [
             'students' => $students,

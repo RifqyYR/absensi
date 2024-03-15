@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Ramsey\Uuid\Uuid;
 
-class StudentParent extends Model
+class StudentParent extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, Notifiable;
     
     protected $fillable = [
         'name',
         'username',
         'password',
-        'phone_number'
+        'phone_number',
+        'api_token',
     ];
 
     public static function booted()
@@ -23,6 +25,10 @@ class StudentParent extends Model
             $model->uuid = Uuid::uuid7();
         });
     }
+
+    protected $hidden = [
+        'password',
+    ];
 
     public function students()
     {

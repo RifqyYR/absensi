@@ -22,7 +22,19 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-3">
+                            <label for="nisn">NISN*</label>
+                            <input id="nisn" type="text"
+                                class="form-control @error('nisn') is-invalid @enderror" name="nisn"
+                                value="{{ old('nisn') }}" required autofocus />
+                            @error('nisn')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-3">
                             <label for="generation">Angkatan*</label>
                             <input id="generation" type="number"
                                 class="form-control @error('generation') is-invalid @enderror" name="generation"
@@ -34,7 +46,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-3">
                             <label for="born_date">Tanggal Lahir*</label>
                             <input id="born_date" type="date"
                                 class="form-control @error('born_date') is-invalid @enderror" name="born_date"
@@ -46,7 +58,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-md-5 mb-0">
+                        <div class="form-group col-md-3 mb-0">
                             <label for="gender">Jenis Kelamin*</label>
                             <div class="form-check py-1 px-0">
                                 <div class="form-check form-check-inline">

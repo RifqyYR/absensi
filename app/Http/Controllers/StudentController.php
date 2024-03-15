@@ -55,6 +55,7 @@ class StudentController extends Controller
                 Student::create([
                     'uuid' => $uuid,
                     'name' => $data['name'],
+                    'nisn' => $data['nisn'],
                     'generation' => $generation,
                     'born_date' => $born_date,
                     'parent_id' => $data['parent_id'],
@@ -117,6 +118,7 @@ class StudentController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'nisn' => 'required',
             'generation' => 'required',
             'born_date' => 'required',
             'parent_id' => 'required',
@@ -141,6 +143,7 @@ class StudentController extends Controller
             DB::transaction(function () use ($data, $student, $fileName) {
                 $student->update([
                     'name' => $data['name'],
+                    'nisn' => $data['nisn'],
                     'generation' => $data['generation'],
                     'born_date' => $data['born_date'],
                     'parent_id' => $data['parent_id'],

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('parent_id');
             $table->string('name');
+            $table->string('nisn')->unique();
             $table->integer('generation');
             $table->integer('violation_points');
             $table->enum('gender', ['L', 'P']);

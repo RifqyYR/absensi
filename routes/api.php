@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    // Auth
+    Route::post('/login', [ApiController::class, 'login']);
+    Route::middleware('auth:sanctum')->get('/logout', [ApiController::class, 'logout']);
+
+    // General
+    Route::middleware('auth:sanctum')->get('/absensi-anak-hari-ini', [ApiController::class, 'getChildTodayAbsence']);
+    Route::middleware('auth:sanctum')->get('/anak', [ApiController::class, 'getChildren']);
+    Route::middleware('auth:sanctum')->get('/riwayat-absensi-anak/{id}', [ApiController::class, 'getChildAbsenceHistoryDetail']);
+    Route::middleware('auth:sanctum')->get('/riwayat-pelanggaran-anak', [ApiController::class, 'getViolationHistory']);
+
+    Route::middleware('auth:sanctum')->get('/get-user', [ApiController::class, 'getUser']);
 });

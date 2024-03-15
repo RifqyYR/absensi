@@ -27,6 +27,7 @@
                     </div>
                     <div class="card-body">
                         <p><strong>Nama:</strong> {{ $student->name }}</p>
+                        <p><strong>NISN:</strong> {{ $student->nisn }}</p>
                         <p><strong>Usia:</strong> {{ Carbon\Carbon::parse($student->born_date)->age }} Tahun</p>
                         <p><strong>Tanggal Lahir:</strong> {{ Carbon\Carbon::parse($student->born_date)->locale('id')->isoFormat('D MMMM Y') }}
                         </p>
