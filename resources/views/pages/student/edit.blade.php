@@ -27,7 +27,7 @@
                             <label for="nisn">NISN*</label>
                             <input id="nisn" type="text"
                                 class="form-control @error('nisn') is-invalid @enderror" name="nisn"
-                                value="{{ old('nisn') }}" required autofocus />
+                                value="{{ $student->nisn }}" required autofocus />
                             @error('nisn')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

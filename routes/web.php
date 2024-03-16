@@ -64,4 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['prefix' => 'pelanggaran-siswa'], function () {
         Route::post('/', [App\Http\Controllers\StudentController::class, 'violation'])->name('student-violation');
     });
+
+    // Import Excel
+    Route::post('/import', [App\Http\Controllers\HomeController::class, 'importExcel'])->name('import');
 });

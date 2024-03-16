@@ -9,8 +9,8 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image d-lg-flex align-content-center align-items-center"
                                 style="border-right: 2px solid #FFB0B0 !important;">
-                                <img src="{{ url('https://placehold.co/600x400') }}" alt="logo aplikasi"
-                                    class="ratio ratio-16x9 img-fluid mx-auto d-block" style="width: 300px;" />
+                                <img src="{{ url('logo.png') }}" alt="logo aplikasi"
+                                    class="ratio ratio-16x9 img-fluid mx-auto d-block" style="width: 200px;" />
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">

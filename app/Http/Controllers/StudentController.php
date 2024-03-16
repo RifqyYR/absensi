@@ -73,7 +73,7 @@ class StudentController extends Controller
         }
     }
 
-    private function generateQR($uuid, $generation)
+    public function generateQR($uuid, $generation)
     {
         $image = QrCode::format('png')->size(320)->generate($uuid);
 

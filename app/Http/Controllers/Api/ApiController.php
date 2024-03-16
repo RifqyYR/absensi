@@ -82,7 +82,8 @@ class ApiController extends Controller
 
         $absences = collect();
         foreach ($loggedInUser->students as $student) {
-            $studentAbsences = Absence::with('student')->where('student_id', $student->id)
+            $studentAbsences = Absence::with('student')
+                ->where('student_id', $student->id)
                 ->whereDate('datetime', now()->subDay())
                 ->get();
             $absences = $absences->push($studentAbsences);
@@ -106,7 +107,7 @@ class ApiController extends Controller
         return new StudenParentResource(true, 'Berhasil mendapatkan data absensi', $loggedInUser->students);
     }
 
-    public function getChildAbsenceHistoryDetail(String $id, Request $request)
+    public function getChildAbsenceHistoryDetail(string $id, Request $request)
     {
         $loggedInUser = $this->checkUserAndToken($request);
 
@@ -135,8 +136,8 @@ class ApiController extends Controller
 
         $violationPoints = $loggedInUser->students->map(function ($student) {
             return [
-                'name'=> $student->name,
-                'violation_points' => $student->violation_points
+                'name' => $student->name,
+                'violation_points' => $student->violation_points,
             ];
         });
 

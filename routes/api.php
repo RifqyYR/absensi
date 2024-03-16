@@ -25,10 +25,11 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->get('/logout', [ApiController::class, 'logout']);
 
     // General
-    Route::middleware('auth:sanctum')->get('/absensi-anak-hari-ini', [ApiController::class, 'getChildTodayAbsence']);
-    Route::middleware('auth:sanctum')->get('/anak', [ApiController::class, 'getChildren']);
-    Route::middleware('auth:sanctum')->get('/riwayat-absensi-anak/{id}', [ApiController::class, 'getChildAbsenceHistoryDetail']);
-    Route::middleware('auth:sanctum')->get('/riwayat-pelanggaran-anak', [ApiController::class, 'getViolationHistory']);
-
-    Route::middleware('auth:sanctum')->get('/get-user', [ApiController::class, 'getUser']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/absensi-anak-hari-ini', [ApiController::class, 'getChildTodayAbsence']);
+        Route::get('/anak', [ApiController::class, 'getChildren']);
+        Route::get('/riwayat-absensi-anak/{id}', [ApiController::class, 'getChildAbsenceHistoryDetail']);
+        Route::get('/riwayat-pelanggaran-anak', [ApiController::class, 'getViolationHistory']);
+        Route::get('/get-user', [ApiController::class, 'getUser']);
+    });
 });

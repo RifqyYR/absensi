@@ -3,10 +3,6 @@
         <i class="fa fa-bars"></i>
     </button>
 
-    {{-- <div class="navbar-brand">
-        Abensi Siswa
-    </div> --}}
-
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -17,6 +13,10 @@
                 <img class="img-profile rounded-circle" src="{{ url('backend/img/undraw_profile.svg') }}">
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item text-success" href="#" data-toggle="modal" data-target="#importExcelModal">
+                    <i class="fas fa-download fa-sm fa-fw mr-2 text-success"></i>
+                    Import Data
+                </a>
                 <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger"></i>
                     Keluar
