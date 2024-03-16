@@ -130,14 +130,16 @@
     }
 
     .id-card {
-        position: absolute;
         left: 0;
         right: 0;
-        top: 30vh;
         bottom: 0;
+        top: 15vh;
         margin: auto;
-        transform: scale(1.5);
     }
+}
+
+@page {
+    size: landscape;
 }
 
 .card-absence-on-time {
@@ -156,4 +158,10 @@
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
     background: #ff0000;
     color: white;
+}
+
+.id-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
 }

@@ -187,4 +187,10 @@ class StudentController extends Controller
                 ->with('error', 'Gagal menambahkan pelanggaran: ' . $e->getMessage());
         }
     }
+
+    public function printAllIdCard()
+    {
+        $students = Student::all();
+        return view('pages.student.print-all-id-card', compact('students'));
+    }
 }

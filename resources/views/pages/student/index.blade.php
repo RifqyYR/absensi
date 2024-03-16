@@ -9,6 +9,9 @@
                 <button type="button" data-toggle="modal" data-target="#studentViolationModal"
                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-orange"><i
                         class="fas fa-times-circle fa-sm text-white"></i> Form Pelanggaran</button>
+                <a href="{{ route('student-data.print-id-cards') }}"
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm ms-1"><i
+                        class="fas fa-id-card fa-sm text-white"></i> Print Id Card</a>
                 <a href="{{ route('student-data.create') }}"
                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-dark-blue ms-1"><i
                         class="fas fa-graduation-cap fa-sm text-white"></i> Tambah Data</a>
