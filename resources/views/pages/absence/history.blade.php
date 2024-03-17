@@ -30,8 +30,8 @@
                                     {{ Carbon\Carbon::parse($date)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                 </a>
                             </td>
-                            <td>{{ count($absencesForDate['IN']) }}</td>
-                            <td>{{ count($absencesForDate['OUT']) }}</td>
+                            <td>{{ isset($absencesForDate['IN']) ? count($absencesForDate['IN']) : 0 }}</td>
+                            <td>{{ isset($absencesForDate['OUT']) ? count($absencesForDate['OUT']) : 0 }}</td>
                         </tr>
                     @endforeach
                 </tbody>
