@@ -22,13 +22,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="phone_number">Nomor Telepon</label>
-                        <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input id="phone_number" type="text"
-                                class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
-                                value="{{ old('phone_number') }}" oninput="validateInput(this)" autofocus />
-                        </div>
+                        <label for="phone_number">Nomor Telepon*</label>
+                        <input id="phone_number" type="text"
+                            class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
+                            value="{{ old('phone_number') }}" oninput="validateInput(this)" autofocus />
                         @error('phone_number')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

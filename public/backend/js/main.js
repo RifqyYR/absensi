@@ -15,7 +15,6 @@ function hapusDataAbsensi(id) {
 
 function validateInput(input) {
     input.value = input.value.replace(/\D/g, "");
-    input.value = input.value.replace(/^0+/, "");
 }
 
 function updateClock() {

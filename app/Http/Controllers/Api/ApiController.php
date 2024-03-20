@@ -14,7 +14,7 @@ class ApiController extends Controller
 {
     public function login(Request $request)
     {
-        $user = StudentParent::where('username', $request->username)->first();
+        $user = StudentParent::where('phone_number', $request->phone_number)->first();
 
         if ($user == null) {
             return new StudenParentResource(false, 'User tidak ditemukan', null);

@@ -16,7 +16,6 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Username</th>
                         <th>Nomor Telepon</th>
                         <th>Anak</th>
                         <th>Tanggal Diubah</th>
@@ -26,7 +25,6 @@
                 <tfoot>
                     <tr>
                         <th>Nama</th>
-                        <th>Username</th>
                         <th>Nomor Telepon</th>
                         <th>Anak</th>
                         <th>Tanggal Diubah</th>
@@ -37,8 +35,7 @@
                     @foreach ($parents as $item)
                         <tr>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->username }}</td>
-                            <td>{{ $item->phone_number == null ? 'Tidak Ada' : '62' . $item->phone_number }}</td>
+                            <td>{{ $item->phone_number == null ? 'Tidak Ada' : $item->phone_number }}</td>
                             <td>
                                 @if ($item->students->count() > 0)
                                     @foreach ($item->students as $child)

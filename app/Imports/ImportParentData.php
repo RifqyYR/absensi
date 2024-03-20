@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentParentController;
 use App\Models\Student;
 use App\Models\StudentParent;
 use Illuminate\Support\Collection;
@@ -18,13 +19,13 @@ class ImportParentData implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        $controller = new StudentParentController();
         $parent = StudentParent::firstOrCreate(
-            ['username' => $row['username']],
+            ['phone_number' => $row['nomor_telepon']],
             [
                 'uuid' => Uuid::uuid4(),
                 'name' => $row['nama_orang_tua'],
-                'phone_number' => $row['nomor_telepon'],
-                'password' => Hash::make(env('DEFAULT_PASSWORD', 'password')),
+                'password' => Hash::make($row['nomor_telepon']),
             ]
         );
 

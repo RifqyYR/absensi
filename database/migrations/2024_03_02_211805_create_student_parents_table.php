@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('name');
-            $table->string('username')->unique();
-            $table->string('phone_number')->nullable();
+            $table->string('phone_number');
             $table->string('password');
             $table->string('api_token')->nullable();
             $table->timestamps();

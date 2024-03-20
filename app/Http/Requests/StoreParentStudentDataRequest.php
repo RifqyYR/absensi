@@ -23,7 +23,7 @@ class StoreParentStudentDataRequest extends FormRequest
     {
         return [
             'nama' => 'required',
-            'phone_number' => 'nullable',
+            'phone_number' => 'required|unique:student_parents,phone_number',
         ];
     }
 
