@@ -80,6 +80,7 @@ class StudentController extends Controller
         $output_dir = 'public/qrcodes/' . $generation;
         if (!Storage::disk('local')->exists($output_dir)) {
             Storage::disk('local')->makeDirectory($output_dir, 0755);
+            chmod(storage_path('app/' . $output_dir), 0755);
         }
 
         $output_file = $output_dir . '/' . $uuid . '.png';
