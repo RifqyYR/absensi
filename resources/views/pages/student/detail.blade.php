@@ -10,12 +10,18 @@
             <div class="col-md-4">
                 <div class="font id-card m-auto">
                     <div class="top">
-                        <img src="{{ $student->image != null ? asset('storage/uploads/images/' . $student->image) : url('default.png') }}">
+                        <img
+                            src="{{ $student->image != null ? asset('storage/uploads/images/' . $student->image) : url('default.png') }}">
                     </div>
                     <div class="bottom">
-                        <p class="fs-5 lh-1">{{ $student->name }}</p>
+                        <p class="fs-5 lh-2 m-1 text-black">
+                            {{ $student->name }}
+                            <br>
+                            <span class="fs-6">{{ $student->nisn }}</span>
+                        </p>
                         <div class="barcode">
-                            <img src="{{ asset('storage/qrcodes/' . $student->generation . '/' . $student->uuid . '.png') }}">
+                            <img
+                                src="{{ asset('storage/qrcodes/' . $student->generation . '/' . $student->uuid . '.png') }}">
                         </div>
                     </div>
                 </div>
@@ -29,7 +35,8 @@
                         <p><strong>Nama:</strong> {{ $student->name }}</p>
                         <p><strong>NISN:</strong> {{ $student->nisn }}</p>
                         <p><strong>Usia:</strong> {{ Carbon\Carbon::parse($student->born_date)->age }} Tahun</p>
-                        <p><strong>Tanggal Lahir:</strong> {{ Carbon\Carbon::parse($student->born_date)->locale('id')->isoFormat('D MMMM Y') }}
+                        <p><strong>Tanggal Lahir:</strong>
+                            {{ Carbon\Carbon::parse($student->born_date)->locale('id')->isoFormat('D MMMM Y') }}
                         </p>
                         <p><strong>Orang Tua:</strong> {{ $student->parent->name }}</p>
                         <p><strong>Jenis Kelamin:</strong> {{ $student->gender == 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>

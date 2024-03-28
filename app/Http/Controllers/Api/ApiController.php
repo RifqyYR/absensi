@@ -14,7 +14,7 @@ class ApiController extends Controller
 {
     public function login(Request $request)
     {
-        $user = StudentParent::where('username', $request->username)->first();
+        $user = StudentParent::where('phone_number', $request->phone_number)->first();
 
         if ($user == null) {
             return new StudenParentResource(false, 'User tidak ditemukan', null);
@@ -142,5 +142,29 @@ class ApiController extends Controller
         });
 
         return new StudenParentResource(true, 'Berhasil mendapatkan data pelanggaran', $violationPoints);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $loggedInUser = $this->checkUserAndToken($request);
+        $data = $request->all();
+
+        if ($loggedInUser instanceof StudenParentResource) {
+            return $loggedInUser;
+        }
+
+        if (!isset($data['new_password']) || !isset($data['confirm_new_password'])) {
+            return new StudenParentResource(false, 'Data tidak lengkap', null);
+        }
+
+        if ($data['new_password'] != $data['confirm_new_password']) {
+            return new StudenParentResource(false, 'Password baru dan konfirmasi password tidak sama', null);
+        }
+
+        $user = StudentParent::find($loggedInUser->id);
+
+        $user->update(['password' => Hash::make($request->new_password)]);
+
+        return new StudenParentResource(true, 'Berhasil mengubah password', null);
     }
 }

@@ -22,24 +22,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                            name="username" value="{{ $parent->username }}" required autofocus />
-                        @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label for="phone_number">Nomor Telepon</label>
-                        <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input id="phone_number" type="text"
-                                class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
-                                value="{{ $parent->phone_number }}" oninput="validateInput(this)" autofocus />
-                        </div>
+                        <input id="phone_number" type="text"
+                            class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
+                            value="{{ $parent->phone_number }}" oninput="validateInput(this)" autofocus />
                         @error('phone_number')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

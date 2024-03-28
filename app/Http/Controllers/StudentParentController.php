@@ -24,13 +24,12 @@ class StudentParentController extends Controller
     public function store(StoreParentStudentDataRequest $request)
     {
         $data = $request->validated();
-        $password = Hash::make(env('DEFAULT_PASSWORD'));
+        $password = Hash::make($data['phone_number']);
 
         try {
             DB::transaction(function () use ($data, $password) {
                 StudentParent::create([
                     'name' => $data['nama'],
-                    'username' => $this->getUniqueUsername(strtolower($data['nama'])),
                     'phone_number' => $data['phone_number'],
                     'password' => $password,
                 ]);
@@ -42,21 +41,6 @@ class StudentParentController extends Controller
                 ->back()
                 ->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
         }
-    }
-
-    protected function getUniqueUsername($name)
-    {
-        $nameParts = explode(" ", $name);
-        $nameParts = array_filter($nameParts);
-        $username = implode("", $nameParts);
-        $i = 1;
-
-        while (StudentParent::where('username', $username)->exists()) {
-            $username .= $i;
-            $i++;
-        }
-
-        return $username;
     }
 
     public function delete(string $uuid)
@@ -84,8 +68,7 @@ class StudentParentController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
-            'username' => 'required',
-            'phone_number' => 'nullable',
+            'phone_number' => 'required',
         ]);
 
         $data = $request->all();
@@ -94,7 +77,6 @@ class StudentParentController extends Controller
             DB::transaction(function () use ($data, $uuid) {
                 StudentParent::where('uuid', $uuid)->update([
                     'name' => $data['nama'],
-                    'username' => strtolower($data['username']),
                     'phone_number' => $data['phone_number'],
                 ]);
             });

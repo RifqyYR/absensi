@@ -31,5 +31,6 @@ Route::prefix('v1')->group(function () {
         Route::get('/riwayat-absensi-anak/{id}', [ApiController::class, 'getChildAbsenceHistoryDetail']);
         Route::get('/riwayat-pelanggaran-anak', [ApiController::class, 'getViolationHistory']);
         Route::get('/get-user', [ApiController::class, 'getUser']);
+        Route::post('/ubah-password', [ApiController::class, 'changePassword']);
     });
 });
