@@ -48,65 +48,6 @@
     font-weight: bold;
 }
 
-.font {
-    height: 450px;
-    width: 250px;
-    position: relative;
-    border-radius: 15px;
-    border: 1px solid #0c2d57;
-}
-
-.top {
-    height: 30%;
-    width: 100%;
-    background-color: #0c2d57;
-    position: relative;
-    z-index: 5;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-}
-
-.bottom {
-    height: 70%;
-    width: 100%;
-    background-color: white;
-    position: absolute;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-.top img {
-    height: 100px;
-    width: 100px;
-    border-radius: 10px;
-    position: absolute;
-    top: 60px;
-    left: 75px;
-}
-
-.bottom p {
-    position: relative;
-    top: 45px;
-    text-align: center;
-    text-transform: capitalize;
-    font-weight: bold;
-    font-size: 20px;
-    text-emphasis: spacing;
-}
-
-.barcode img {
-    height: 120px;
-    width: 120px;
-    text-align: center;
-    margin: 5px;
-}
-
-.barcode {
-    text-align: center;
-    position: relative;
-    top: 70px;
-}
-
 @media print {
     body * {
         visibility: hidden;
@@ -118,11 +59,7 @@
     }
 
     .id-card {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 15vh;
-        margin: auto;
+        top: 5vh;
     }
 }
 
@@ -151,5 +88,86 @@
 .id-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    gap: 50px;
+}
+
+.id-card {
+    width: 300px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.background-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    background-image: url('../img/shape-top.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.school-name {
+    margin-top: 5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    color: black;
+    text-align: center;
+}
+
+.school-desc {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 10px;
+    color: black;
+    text-align: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.info h2 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+    color: #007934;
+    text-align: center;
+}
+
+.info span {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+
+.background-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 250px;
+    background-image: url('../img/shape-bottom.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.background-bottom img {
+    margin-top: 40px;
 }

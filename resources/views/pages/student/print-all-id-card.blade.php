@@ -3,19 +3,21 @@
 @section('content')
     <div class="container-fluid id-card-grid">
         @foreach ($students as $item)
-            <div class="font id-card m-auto" style="page-break-after: always;">
-                <div class="top">
-                    <img
-                        src="{{ $item->image != null ? asset('storage/uploads/images/' . $item->image) : url('default.png') }}">
+            <div class="id-card m-auto" style="page-break-after: always;">
+                <div class="header">
+                    <div class="background-top"></div>
+                        <img class="logo-img" width="40px" src="{{ url('logo.png') }}" alt="School Logo">
+                        <h6 class="school-name">MAN 1 Bone</h6>
+                </div>
+                <div class="info my-4">
+                    <h2 class="mb-0">{{ $item->name }}</h2>
+                    <span>{{ $item->nisn }}</span>
                 </div>
                 <div class="bottom">
-                    <p class="fs-5 lh-2 m-1 text-black">
-                        {{ $item->name }}
-                        <br>
-                        <span class="fs-6">{{ $item->nisn }}</span>
-                    </p>
-                    <div class="barcode">
-                        <img src="{{ asset('storage/qrcodes/' . $item->generation . '/' . $item->uuid . '.png') }}">
+                    <div class="background-bottom">
+                        <img width="120px"
+                            src="{{ asset('storage/qrcodes/' . $item->generation . '/' . $item->uuid . '.png') }}"
+                            alt="QR Code" class="qr-code">
                     </div>
                 </div>
             </div>

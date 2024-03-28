@@ -32,7 +32,7 @@
 <body class="bg-image"
     @php
 if (Request::is('login')) {
-        echo 'style="background-image: url(\'bg.jpg\'); background-size: cover; background-repeat: no-repeat; height: 100vh;"';
+        echo 'style="background-image: url(\'bg.svg\'); background-size: cover; background-repeat: no-repeat; height: 100vh;"';
     } @endphp>
     @yield('content')
 </body>
