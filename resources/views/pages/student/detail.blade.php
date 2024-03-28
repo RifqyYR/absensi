@@ -8,20 +8,21 @@
 
         <div class="row">
             <div class="col-md-4">
-                <div class="font id-card m-auto">
-                    <div class="top">
-                        <img
-                            src="{{ $student->image != null ? asset('storage/uploads/images/' . $student->image) : url('default.png') }}">
+                <div class="card id-card m-auto">
+                    <div class="header">
+                        <div class="background-top"></div>
+                        <img class="logo-img" width="40px" src="{{ url('logo.png') }}" alt="School Logo">
+                        <h6 class="school-name">MAN 1 Bone</h6>
+                    </div>
+                    <div class="info">
+                        <h2 class="mb-0">{{ $student->name }}</h2>
+                        <span>{{ $student->nisn }}</span>
                     </div>
                     <div class="bottom">
-                        <p class="fs-5 lh-2 m-1 text-black">
-                            {{ $student->name }}
-                            <br>
-                            <span class="fs-6">{{ $student->nisn }}</span>
-                        </p>
-                        <div class="barcode">
-                            <img
-                                src="{{ asset('storage/qrcodes/' . $student->generation . '/' . $student->uuid . '.png') }}">
+                        <div class="background-bottom">
+                            <img width="120px"
+                                src="{{ Storage::url('qrcodes/' . $student->generation . '/' . $student->uuid . '.png') }}"
+                                alt="QR Code" class="qr-code">
                         </div>
                     </div>
                 </div>
@@ -32,16 +33,42 @@
                         <h6 class="text-black fw-bold">Data Siswa</h6>
                     </div>
                     <div class="card-body">
-                        <p><strong>Nama:</strong> {{ $student->name }}</p>
-                        <p><strong>NISN:</strong> {{ $student->nisn }}</p>
-                        <p><strong>Usia:</strong> {{ Carbon\Carbon::parse($student->born_date)->age }} Tahun</p>
-                        <p><strong>Tanggal Lahir:</strong>
-                            {{ Carbon\Carbon::parse($student->born_date)->locale('id')->isoFormat('D MMMM Y') }}
-                        </p>
-                        <p><strong>Orang Tua:</strong> {{ $student->parent->name }}</p>
-                        <p><strong>Jenis Kelamin:</strong> {{ $student->gender == 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
-                        <p><strong>Angkatan:</strong> {{ $student->generation }}</p>
-                        <p><strong>Poin Pelanggaran:</strong> {{ $student->violation_points }}</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nama:</strong> {{ $student->name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>NISN:</strong> {{ $student->nisn }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Angkatan:</strong> {{ $student->generation }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Jenis Kelamin:</strong> {{ $student->gender == 'L' ? 'Laki-Laki' : 'Perempuan' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Tanggal Lahir:</strong>
+                                    {{ Carbon\Carbon::parse($student->born_date)->locale('id')->isoFormat('D MMMM Y') }}
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Usia:</strong> {{ Carbon\Carbon::parse($student->born_date)->age }} Tahun</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Orang Tua:</strong> {{ $student->parent->name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Poin Pelanggaran:</strong> {{ $student->violation_points }}</p>
+                            </div>
+                        </div>
+
                         <button class="btn btn-primary mt-4" onclick="window.print()">Print ID Card</button>
                     </div>
                 </div>

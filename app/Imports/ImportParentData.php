@@ -6,12 +6,9 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentParentController;
 use App\Models\Student;
 use App\Models\StudentParent;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Ramsey\Uuid\Uuid;
 
