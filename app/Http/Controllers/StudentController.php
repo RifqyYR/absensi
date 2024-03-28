@@ -77,7 +77,12 @@ class StudentController extends Controller
     {
         $image = QrCode::format('png')->size(320)->generate($uuid);
 
-        $output_file = 'public/qrcodes/' . $generation . '/' . $uuid . '.png';
+        $output_dir = 'public/qrcodes/' . $generation;
+        if (!Storage::disk('local')->exists($output_dir)) {
+            Storage::disk('local')->makeDirectory($output_dir, 0755);
+        }
+
+        $output_file = $output_dir . '/' . $uuid . '.png';
         Storage::disk('local')->put($output_file, $image);
     }
 
