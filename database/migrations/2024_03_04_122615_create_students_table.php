@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->timestamps();
 
-            $table->foreign('parent_id')->references('id')->on('student_parents');
+            $table->foreign('parent_id')->references('id')->on('student_parents')->onDelete('cascade');
         });
     }
 

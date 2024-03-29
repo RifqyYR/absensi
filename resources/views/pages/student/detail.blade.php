@@ -69,7 +69,12 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary mt-4" onclick="window.print()">Print ID Card</button>
+                        <button class="btn btn-md btn-primary mt-4 me-2" onclick="window.print()">Print ID Card</button>
+                        <a href="{{ route('student-data.violation-history', $student->uuid) }}"
+                            class="{{ $student->violation_points == 0 ? 'disabled-link' : '' }}">
+                            <button class="btn btn-md btn-danger mt-4"
+                                {{ $student->violation_points == 0 ? 'disabled' : '' }}>Riwayat Pelanggaran</button>
+                        </a>
                     </div>
                 </div>
             </div>

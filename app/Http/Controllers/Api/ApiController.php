@@ -84,7 +84,7 @@ class ApiController extends Controller
         foreach ($loggedInUser->students as $student) {
             $studentAbsences = Absence::with('student')
                 ->where('student_id', $student->id)
-                ->whereDate('datetime', now()->subDay())
+                ->whereDate('datetime', now())
                 ->get();
             $absences = $absences->push($studentAbsences);
         }

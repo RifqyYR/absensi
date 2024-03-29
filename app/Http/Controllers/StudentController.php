@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStudentDataRequest;
 use App\Models\Student;
 use App\Models\StudentParent;
+use App\Models\Violation;
 use App\Models\ViolationPoint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -184,6 +185,10 @@ class StudentController extends Controller
                 $student->update([
                     'violation_points' => $student->violation_points + $violation->points,
                 ]);
+                Violation::create([
+                    'student_id' => $student->id,
+                    'violation_point_id' => $violation->id,
+                ]);
             });
 
             return redirect()->route('student-data')->with('success', 'Berhasil mengirim data');
@@ -191,6 +196,43 @@ class StudentController extends Controller
             return redirect()
                 ->back()
                 ->with('error', 'Gagal menambahkan pelanggaran: ' . $e->getMessage());
+        }
+    }
+
+    public function violationHistory(String $uuid)
+    {
+        $student = Student::where('uuid', $uuid)->first();
+        $violations = Violation::with('violationPoint')->where('student_id', $student->id)->get();
+        
+        return view('pages.student.violation-history', [
+            'student' => $student,
+            'violations' => $violations,
+        ]);
+    }
+
+    public function deleteViolationHistory(String $uuid)
+    {
+        try {
+            $violation = Violation::where('uuid', $uuid)->first();
+            $student = Student::where('id', $violation->student_id)->first();
+            $violationPoint = ViolationPoint::where('id', $violation->violation_point_id)->first();
+
+            DB::transaction(function () use ($violation, $student, $violationPoint) {
+                $student->update([
+                    'violation_points' => $student->violation_points - $violationPoint->points,
+                ]);
+                $violation->delete();
+            });
+
+            if ($student->violation_points == 0) {
+                return redirect()->route('student-data.detail', ['uuid' => $student->uuid])->with('success', 'Berhasil menghapus data');
+            }
+            
+            return redirect()->route('student-data.violation-history', ['uuid' => $student->uuid])->with('success', 'Berhasil menghapus data');
+        } catch (\Throwable $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
 

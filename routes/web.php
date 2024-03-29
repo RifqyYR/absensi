@@ -35,11 +35,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [App\Http\Controllers\StudentController::class, 'index'])->name('student-data');
         Route::get('/id-card-siswa', [App\Http\Controllers\StudentController::class, 'printAllIdCard'])->name('student-data.print-id-cards');
         Route::get('/detail/{uuid}', [App\Http\Controllers\StudentController::class, 'detail'])->name('student-data.detail');
+        Route::get('/detail/riwayat-pelanggaran/{uuid}', [App\Http\Controllers\StudentController::class, 'violationHistory'])->name('student-data.violation-history');
+        Route::get('/detail/riwayat-pelanggaran/hapus/{uuid}', [App\Http\Controllers\StudentController::class, 'deleteViolationHistory'])->name('student-data.violation-history.delete');
         Route::get('/tambah', [App\Http\Controllers\StudentController::class, 'create'])->name('student-data.create');
         Route::post('/tambah', [App\Http\Controllers\StudentController::class, 'store'])->name('student-data.store');
         Route::get('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student-data.edit');
         Route::post('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'editProcess'])->name('student-data.edit-process');
         Route::get('/hapus/{uuid}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student-data.delete');
+
     });
 
     // Absence

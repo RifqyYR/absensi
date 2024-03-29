@@ -13,6 +13,11 @@ function hapusDataAbsensi(id) {
     link.href = "/riwayat-absensi/hapus/" + id;
 }
 
+function hapusDataPelanggaran(id) {
+    const link = document.getElementById("deleteViolationDataLink");
+    link.href = "/data-siswa/detail/riwayat-pelanggaran/hapus/" + id;
+}
+
 function validateInput(input) {
     input.value = input.value.replace(/\D/g, "");
 }
