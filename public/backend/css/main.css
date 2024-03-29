@@ -170,4 +170,6 @@
 
 .background-bottom img {
     margin-top: 40px;
+    border: 5px solid white;
+    border-radius: 5px;
 }

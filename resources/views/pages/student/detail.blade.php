@@ -20,7 +20,7 @@
                     </div>
                     <div class="bottom">
                         <div class="background-bottom">
-                            <img width="120px"
+                            <img width="150px"
                                 src="{{ Storage::url('qrcodes/' . $student->generation . '/' . $student->uuid . '.png') }}"
                                 alt="QR Code" class="qr-code">
                         </div>

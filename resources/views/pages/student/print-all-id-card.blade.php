@@ -15,7 +15,7 @@
                 </div>
                 <div class="bottom">
                     <div class="background-bottom">
-                        <img width="120px"
+                        <img width="150px"
                             src="{{ asset('storage/qrcodes/' . $item->generation . '/' . $item->uuid . '.png') }}"
                             alt="QR Code" class="qr-code">
                     </div>
