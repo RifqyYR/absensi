@@ -123,7 +123,6 @@ class StudentController extends Controller
         ]);
 
         $data = $request->all();
-        $fileName = '';
 
         try {
             $student = Student::where('uuid', $uuid)->first();

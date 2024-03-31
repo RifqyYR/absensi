@@ -119,7 +119,7 @@ class ApiController extends Controller
             return new StudenParentResource(false, 'Data tidak ditemukan', null);
         }
 
-        $absences = Absence::with('student')->where('student_id', $id)->get();
+        $absences = Absence::where('student_id', $id)->get();
 
         return new StudenParentResource(true, 'Berhasil mendapatkan data absensi', $absences);
     }
