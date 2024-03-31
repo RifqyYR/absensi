@@ -38,7 +38,6 @@ class StudentController extends Controller
     {
         $request->validated();
         $data = $request->all();
-        $fileName = '';
 
         try {
             $uuid = Uuid::uuid7();
@@ -46,12 +45,7 @@ class StudentController extends Controller
 
             $this->generateQR($uuid, $generation);
 
-            if (isset($data['image'])) {
-                $fileName = $uuid . '-' . time() . '.png';
-                Storage::putFileAs('/public/uploads/images', $request->file('image'), $fileName);
-            }
-
-            DB::transaction(function () use ($data, $uuid, $generation, $fileName) {
+            DB::transaction(function () use ($data, $uuid, $generation) {
                 $born_date = Carbon::parse($data['born_date']);
                 Student::create([
                     'uuid' => $uuid,
@@ -61,7 +55,6 @@ class StudentController extends Controller
                     'born_date' => $born_date,
                     'parent_id' => $data['parent_id'],
                     'violation_points' => 0,
-                    'image' => $fileName != '' ? $fileName : null,
                     'gender' => $data['gender'],
                 ]);
             });
@@ -94,9 +87,6 @@ class StudentController extends Controller
             $student = Student::where('uuid', $uuid)->first();
 
             DB::transaction(function () use ($student) {
-                if (Storage::exists('/public/uploads/images/' . $student->image)) {
-                    Storage::delete('/public/uploads/images/' . $student->image);
-                }
                 if (Storage::exists('/public/qrcodes/' . $student->generation . '/' . $student->uuid . '.png')) {
                     Storage::delete('/public/qrcodes/' . $student->generation . '/' . $student->uuid . '.png');
                 }
@@ -138,16 +128,7 @@ class StudentController extends Controller
         try {
             $student = Student::where('uuid', $uuid)->first();
 
-            if (isset($data['image'])) {
-                if (Storage::exists('/public/uploads/images/' . $student->image)) {
-                    Storage::delete('/public/uploads/images/' . $student->image);
-                }
-
-                $fileName = $uuid . '-' . time() . '.png';
-                Storage::putFileAs('/public/uploads/images', $request->file('image'), $fileName);
-            }
-
-            DB::transaction(function () use ($data, $student, $fileName) {
+            DB::transaction(function () use ($data, $student) {
                 $student->update([
                     'name' => $data['name'],
                     'nisn' => $data['nisn'],
@@ -155,7 +136,6 @@ class StudentController extends Controller
                     'born_date' => $data['born_date'],
                     'parent_id' => $data['parent_id'],
                     'violation_points' => $data['violation_points'],
-                    'image' => $fileName != '' ? $fileName : $student->image,
                 ]);
             });
 
