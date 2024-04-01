@@ -32,10 +32,6 @@
                 @if (count($absences) != 0)
                     @foreach ($absences as $item)
                         <div class="{{ $item->status == 'PRESENT' ? 'card-absence-on-time' : 'card-absence-late' }} px-3 py-2 mb-2">
-                            <div class="img me-2">
-                                <img src="{{ $item->student->image != null ? asset('storage/uploads/images/' . $item->student->image) : url('default.png') }}"
-                                    alt="" width="35em" style="border-radius: 100%";>
-                            </div>
                             <div class="content">
                                 <div class="name fw-bold">{{ $item->student->name }}</div>
                             </div>
