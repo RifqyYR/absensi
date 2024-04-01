@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AbsenceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -72,4 +71,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Import Excel
     Route::post('/import', [App\Http\Controllers\HomeController::class, 'importExcel'])->name('import');
+
+    // User Management
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('user');
+        Route::get('/tambah', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
+        Route::post('/tambah', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+        Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+        Route::post('/edit/{id}', [App\Http\Controllers\UserController::class, 'editProcess'])->name('user.edit-process');
+        Route::get('/hapus/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
+        Route::get('/ubah-password', [App\Http\Controllers\UserController::class, 'changePasswordShowPage'])->name('user.change-password-page');
+        Route::post('/ubah-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('user.change-password');
+    });
 });

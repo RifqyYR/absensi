@@ -13,6 +13,10 @@
                 <img class="img-profile rounded-circle" src="{{ url('backend/img/undraw_profile.svg') }}">
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{{ route('user') }}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                    Kelola User
+                </a>
                 <a class="dropdown-item text-success" href="#" data-toggle="modal" data-target="#importExcelModal">
                     <i class="fas fa-download fa-sm fa-fw mr-2 text-success"></i>
                     Import Data
