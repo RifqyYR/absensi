@@ -52,7 +52,7 @@
                                     @elseif($item->status == 'PERMIT')
                                         <span class="badge bg-info">Izin</span>
                                     @elseif($item->status == 'ABSENT')
-                                        <span class="badge bg-secondary">Absen</span>
+                                        <span class="badge bg-warning">Tidak Absen</span>
                                     @endif
                                 </td>
                                 <td>
@@ -105,7 +105,7 @@
                                     <option value="PRESENT">Hadir</option>
                                     <option value="LATE">Terlambat</option>
                                     <option value="PERMIT">Izin</option>
-                                    <option value="ABSENT">Absen</option>
+                                    <option value="ABSENT">Tidak Absen</option>
                                 </select>
                             </div>
                             <div class="modal-footer">
