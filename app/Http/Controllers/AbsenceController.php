@@ -78,12 +78,35 @@ class AbsenceController extends Controller
         }
     }
 
+    public function notAbsence()
+    {
+        $students = Student::all();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->get()->pluck('student_id')->toArray();
+
+        $currentTime = now()->format('H:i');
+        $absenceTime = '08:30';
+
+        
+        if ($currentTime > $absenceTime) {
+            foreach ($students as $student) {
+                if (!in_array($student->id, $todayAbsences)) {
+                    Absence::create([
+                        'student_id' => $student->id,
+                        'category' => 'IN',
+                        'date' => now(),
+                        'time' => now(),
+                        'datetime' => now(),
+                        'status' => 'ABSENT',
+                    ]);
+                }
+            }
+        }
+    }
+
     public function indexOut()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())
-            ->where('category', 'OUT')
-            ->get();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'OUT')->get();
 
         return view('pages.absence.index-out', [
             'students' => $students,
@@ -160,7 +183,7 @@ class AbsenceController extends Controller
         ]);
     }
 
-    public function deleteHistory(String $uuid)
+    public function deleteHistory(string $uuid)
     {
         $absence = Absence::where('uuid', $uuid)->first();
 
@@ -175,10 +198,7 @@ class AbsenceController extends Controller
 
     public function detailHistory($date)
     {
-        $absences = Absence::with('student')
-            ->whereDate('datetime', $date)
-            ->orderBy('datetime', 'asc')
-            ->get();
+        $absences = Absence::with('student')->whereDate('datetime', $date)->orderBy('datetime', 'asc')->get();
 
         return view('pages.absence.detail-history', [
             'absences' => $absences,
@@ -192,21 +212,20 @@ class AbsenceController extends Controller
                 'ids' => 'required',
                 'status' => 'required|string',
             ]);
-    
+
             Absence::whereIn('id', $request->ids)->update(['status' => $request->status]);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal mengubah data: ' . $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal mengubah data: ' . $e->getMessage());
         }
-    
+
         return redirect()->back()->with('success', 'Berhasil mengubah status');
     }
 
     public function getAbsencesByDate()
     {
-        $absences = Absence::where('category', 'IN')
-            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
+        $absences = Absence::where('category', 'IN')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
 
         return response()->json($absences);
     }

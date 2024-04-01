@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-class ViolationPoint extends Model
+class Violation extends Model
 {
     use HasFactory;
 
@@ -15,12 +15,17 @@ class ViolationPoint extends Model
     public static function booted()
     {
         static::creating(function ($model) {
-            $model->uuid = Uuid::uuid7();
+            $model->uuid = Uuid::uuid4();
         });
     }
 
-    public function violations()
+    public function student()
     {
-        return $this->hasMany(Violation::class);
+        return $this->belongsTo(Student::class);
+    }
+
+    public function violationPoint()
+    {
+        return $this->belongsTo(ViolationPoint::class);
     }
 }

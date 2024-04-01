@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
 
 class Student extends Model
 {
@@ -20,5 +19,10 @@ class Student extends Model
     public function absences()
     {
         return $this->hasMany(Absence::class);
+    }
+
+    public function violations()
+    {
+        return $this->hasMany(Violation::class);
     }
 }

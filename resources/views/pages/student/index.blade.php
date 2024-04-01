@@ -58,7 +58,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column">
-                                        <div class="align-items-center d-grip gap-4">
+                                        <div class="align-items-center d-grip gap-4 mx-auto">
                                             {{-- Edit Button --}}
                                             <a href="{{ route('student-data.edit', $item->uuid) }}"><button type="button"
                                                     class="btn btn-sm btn-warning">

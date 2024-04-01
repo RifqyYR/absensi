@@ -34,7 +34,6 @@ class StoreStudentDataRequest extends FormRequest
             'born_date' => 'required|date',
             'parent_id' => 'required',
             'gender' => 'required',
-            'image' => 'nullable|max:1024|mimes:jpg,jpeg,png,gif'
         ];
     }
 }

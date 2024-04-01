@@ -107,17 +107,6 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="image">Foto</label>
-                        <input id="image" type="file" class="form-control @error('image') is-invalid @enderror"
-                            name="image" value="{{ $student->image }}" autofocus accept="image/*" />
-                        @error('image')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
                     <button type="submit" class="btn btn-primary mt-3" style="background-color: #0C2D57; border: #0C2D57">
                         {{ __('Submit') }}
                     </button>

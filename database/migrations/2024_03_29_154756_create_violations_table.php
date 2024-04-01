@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absences', function (Blueprint $table) {
+        Schema::create('violations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('student_id');
-            $table->date('date');
-            $table->time('time');
-            $table->dateTime('datetime');
-            $table->enum('category', ["IN", "OUT"])->default('IN');
-            $table->enum('status', ["PRESENT", "LATE", "ABSENT", "PERMIT"])->default('ABSENT');
+            $table->unsignedBigInteger('violation_point_id');
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('violation_point_id')->references('id')->on('violation_points')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absence');
+        Schema::dropIfExists('violations');
     }
 };

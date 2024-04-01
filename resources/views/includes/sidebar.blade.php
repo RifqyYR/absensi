@@ -46,7 +46,7 @@
         </a>
     </li>
 
-    <li class="nav-item {{ Route::is('absence-history') ? 'active' : '' }}">
+    <li class="nav-item {{ Route::is('absence-history*') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="{{ route('absence-history') }}">
             <i class="fas fa-fw fa-history"></i>
             <span>Riwayat Absensi</span>

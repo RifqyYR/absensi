@@ -173,3 +173,8 @@
     border: 5px solid white;
     border-radius: 5px;
 }
+
+.disabled-link {
+    pointer-events: none;
+    cursor: default;
+}

@@ -84,7 +84,7 @@ class ApiController extends Controller
         foreach ($loggedInUser->students as $student) {
             $studentAbsences = Absence::with('student')
                 ->where('student_id', $student->id)
-                ->whereDate('datetime', now()->subDay())
+                ->whereDate('datetime', now())
                 ->get();
             $absences = $absences->push($studentAbsences);
         }
@@ -119,7 +119,7 @@ class ApiController extends Controller
             return new StudenParentResource(false, 'Data tidak ditemukan', null);
         }
 
-        $absences = Absence::with('student')->where('student_id', $id)->get();
+        $absences = Absence::where('student_id', $id)->get();
 
         return new StudenParentResource(true, 'Berhasil mendapatkan data absensi', $absences);
     }

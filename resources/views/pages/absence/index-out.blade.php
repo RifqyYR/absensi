@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h4 mb-0 text-black">Absensi Masuk</h1>
+            <h1 class="h4 mb-0 text-black">Absensi Pulang</h1>
         </div>
 
         <div class="row">
