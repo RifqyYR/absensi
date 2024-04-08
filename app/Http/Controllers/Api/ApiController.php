@@ -17,17 +17,17 @@ class ApiController extends Controller
         $user = StudentParent::where('phone_number', $request->phone_number)->first();
 
         if ($user == null) {
-            return new StudenParentResource(false, 'User tidak ditemukan', null);
+            return new StudenParentResource(false, 400, 'User tidak ditemukan', null);
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            return new StudenParentResource(false, 'Password salah', null);
+            return new StudenParentResource(false, 400, 'Password salah', null);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $user->update(['api_token' => $token]);
 
-        return new StudenParentResource(true, 'Login berhasil', $user);
+        return new StudenParentResource(true, 200, 'Login berhasil', $user);
     }
 
     private function checkUserAndToken(Request $request)
@@ -35,13 +35,13 @@ class ApiController extends Controller
         $user = Auth::user();
 
         if (!$user || $user->api_token == null) {
-            return new StudenParentResource(false, 'Sesi telah berakhir', null);
+            return new StudenParentResource(false, 401, 'Sesi telah berakhir', null);
         }
 
         $headerToken = str_replace('Bearer ', '', $request->header('Authorization'));
 
         if ($user->api_token != $headerToken) {
-            return new StudenParentResource(false, 'Token tidak valid', null);
+            return new StudenParentResource(false, 401, 'Token tidak valid', null);
         }
 
         return $user;
@@ -55,7 +55,7 @@ class ApiController extends Controller
             return $user;
         }
 
-        return new StudenParentResource(true, 'User ditemukan', $user->makeHidden('api_token'));
+        return new StudenParentResource(true, 200, 'User ditemukan', $user->makeHidden('api_token'));
     }
 
     public function logout(Request $request)
@@ -69,7 +69,7 @@ class ApiController extends Controller
         $user = StudentParent::find($loggedInUser->id);
         $user->update(['api_token' => null]);
 
-        return new StudenParentResource(true, 'Logout berhasil', null);
+        return new StudenParentResource(true, 200, 'Logout berhasil', null);
     }
 
     public function getChildTodayAbsence(Request $request)
@@ -91,7 +91,7 @@ class ApiController extends Controller
 
         $absences = $absences->flatten();
 
-        return new StudenParentResource(true, 'Berhasil mendapatkan data absensi hari ini', $absences);
+        return new StudenParentResource(true, 200,'Berhasil mendapatkan data absensi hari ini', $absences);
     }
 
     public function getChildren(Request $request)
@@ -104,7 +104,7 @@ class ApiController extends Controller
 
         $loggedInUser->load('students');
 
-        return new StudenParentResource(true, 'Berhasil mendapatkan data absensi', $loggedInUser->students);
+        return new StudenParentResource(true, 200, 'Berhasil mendapatkan data absensi', $loggedInUser->students);
     }
 
     public function getChildAbsenceHistoryDetail(string $id, Request $request)
@@ -116,12 +116,12 @@ class ApiController extends Controller
         }
 
         if (!$loggedInUser->students->contains('id', $id)) {
-            return new StudenParentResource(false, 'Data tidak ditemukan', null);
+            return new StudenParentResource(false, 400, 'Data tidak ditemukan', null);
         }
 
         $absences = Absence::where('student_id', $id)->get();
 
-        return new StudenParentResource(true, 'Berhasil mendapatkan data absensi', $absences);
+        return new StudenParentResource(true, 200, 'Berhasil mendapatkan data absensi', $absences);
     }
 
     public function getViolationHistory(Request $request)
@@ -141,7 +141,7 @@ class ApiController extends Controller
             ];
         });
 
-        return new StudenParentResource(true, 'Berhasil mendapatkan data pelanggaran', $violationPoints);
+        return new StudenParentResource(true, 200, 'Berhasil mendapatkan data pelanggaran', $violationPoints);
     }
 
     public function changePassword(Request $request)
@@ -154,17 +154,17 @@ class ApiController extends Controller
         }
 
         if (!isset($data['new_password']) || !isset($data['confirm_new_password'])) {
-            return new StudenParentResource(false, 'Data tidak lengkap', null);
+            return new StudenParentResource(false, 400, 'Data tidak lengkap', null);
         }
 
         if ($data['new_password'] != $data['confirm_new_password']) {
-            return new StudenParentResource(false, 'Password baru dan konfirmasi password tidak sama', null);
+            return new StudenParentResource(false, 400, 'Password baru dan konfirmasi password tidak sama', null);
         }
 
         $user = StudentParent::find($loggedInUser->id);
 
         $user->update(['password' => Hash::make($request->new_password)]);
 
-        return new StudenParentResource(true, 'Berhasil mengubah password', null);
+        return new StudenParentResource(true, 200, 'Berhasil mengubah password', null);
     }
 }
