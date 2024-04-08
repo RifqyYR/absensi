@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class StudenParentResource extends JsonResource
 {
     public $status;
+    public $code;
     public $message;
 
     /**
@@ -15,10 +16,11 @@ class StudenParentResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function __construct($status, $message, $resource) 
+    public function __construct($status, $code,  $message, $resource) 
     {
         parent::__construct($resource);
         $this->status = $status;
+        $this->code = $code;
         $this->message = $message;
     }
 
@@ -26,7 +28,7 @@ class StudenParentResource extends JsonResource
     {
         return [
             'success' => $this->status,
-            'code' => $this->status ? 200 : 400,
+            'code' => $this->code,
             'message' => $this->message,
             'data' => $this->resource,
         ];
