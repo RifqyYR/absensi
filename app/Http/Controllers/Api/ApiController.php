@@ -7,6 +7,7 @@ use App\Http\Resources\StudenParentResource;
 use App\Models\Absence;
 use App\Models\StudentParent;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,11 +18,11 @@ class ApiController extends Controller
         $user = StudentParent::where('phone_number', $request->phone_number)->first();
 
         if ($user == null) {
-            return new StudenParentResource(false, 400, 'User tidak ditemukan', null);
+            return response(new StudenParentResource(false, 400, 'User tidak ditemukan', null), 404);
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            return new StudenParentResource(false, 400, 'Password salah', null);
+            return response(new StudenParentResource(false, 400, 'Password salah', null), 400);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -34,14 +35,16 @@ class ApiController extends Controller
     {
         $user = Auth::user();
 
+        $user = Auth::user();
+
         if (!$user || $user->api_token == null) {
-            return new StudenParentResource(false, 401, 'Sesi telah berakhir', null);
+            return response(new StudenParentResource(false, 401, 'Sesi telah berakhir', null), 401);
         }
 
         $headerToken = str_replace('Bearer ', '', $request->header('Authorization'));
 
         if ($user->api_token != $headerToken) {
-            return new StudenParentResource(false, 401, 'Token tidak valid', null);
+            return response(new StudenParentResource(false, 401, 'Token tidak valid', null), 401);
         }
 
         return $user;
@@ -51,7 +54,7 @@ class ApiController extends Controller
     {
         $user = $this->checkUserAndToken($request);
 
-        if ($user instanceof StudenParentResource) {
+        if ($user instanceof Response) {
             return $user;
         }
 
@@ -62,7 +65,7 @@ class ApiController extends Controller
     {
         $loggedInUser = $this->checkUserAndToken($request);
 
-        if ($loggedInUser instanceof StudenParentResource) {
+        if ($loggedInUser instanceof Response) {
             return $loggedInUser;
         }
 
@@ -76,7 +79,7 @@ class ApiController extends Controller
     {
         $loggedInUser = $this->checkUserAndToken($request);
 
-        if ($loggedInUser instanceof StudenParentResource) {
+        if ($loggedInUser instanceof Response) {
             return $loggedInUser;
         }
 
@@ -91,14 +94,14 @@ class ApiController extends Controller
 
         $absences = $absences->flatten();
 
-        return new StudenParentResource(true, 200,'Berhasil mendapatkan data absensi hari ini', $absences);
+        return new StudenParentResource(true, 200, 'Berhasil mendapatkan data absensi hari ini', $absences);
     }
 
     public function getChildren(Request $request)
     {
         $loggedInUser = $this->checkUserAndToken($request);
 
-        if ($loggedInUser instanceof StudenParentResource) {
+        if ($loggedInUser instanceof Response) {
             return $loggedInUser;
         }
 
@@ -111,7 +114,7 @@ class ApiController extends Controller
     {
         $loggedInUser = $this->checkUserAndToken($request);
 
-        if ($loggedInUser instanceof StudenParentResource) {
+        if ($loggedInUser instanceof Response) {
             return $loggedInUser;
         }
 
@@ -128,7 +131,7 @@ class ApiController extends Controller
     {
         $loggedInUser = $this->checkUserAndToken($request);
 
-        if ($loggedInUser instanceof StudenParentResource) {
+        if ($loggedInUser instanceof Response) {
             return $loggedInUser;
         }
 
@@ -149,7 +152,7 @@ class ApiController extends Controller
         $loggedInUser = $this->checkUserAndToken($request);
         $data = $request->all();
 
-        if ($loggedInUser instanceof StudenParentResource) {
+        if ($loggedInUser instanceof Response) {
             return $loggedInUser;
         }
 
