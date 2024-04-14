@@ -12,7 +12,8 @@ class AbsenceController extends Controller
     public function indexIn()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->get();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->where('status', 
+        '!=', 'ABSENT')->get();
 
         return view('pages.absence.index-in', [
             'students' => $students,
@@ -58,8 +59,8 @@ class AbsenceController extends Controller
 
             try {
                 DB::transaction(function () use ($student, $status) {
-                    Absence::create([
-                        'student_id' => $student->id,
+                    $latestAbsence = $student->absences()->where('category', 'IN')->latest()->first();
+                    $latestAbsence->update([
                         'date' => now(),
                         'time' => now(),
                         'datetime' => now(),
@@ -78,35 +79,34 @@ class AbsenceController extends Controller
         }
     }
 
-    public function notAbsence()
+    public function createAbsenceToday()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->get()->pluck('student_id')->toArray();
 
-        $currentTime = now()->format('H:i');
-        $absenceTime = '08:30';
-
-        
-        if ($currentTime > $absenceTime) {
-            foreach ($students as $student) {
-                if (!in_array($student->id, $todayAbsences)) {
-                    Absence::create([
-                        'student_id' => $student->id,
-                        'category' => 'IN',
-                        'date' => now(),
-                        'time' => now(),
-                        'datetime' => now(),
-                        'status' => 'ABSENT',
-                    ]);
-                }
-            }
+        foreach ($students as $student) {
+            Absence::create([
+                'student_id' => $student->id,
+                'category' => 'IN',
+                'date' => now(),
+                'time' => now(),
+                'datetime' => now(),
+                'status' => 'ABSENT',
+            ]);
+            Absence::create([
+                'student_id' => $student->id,
+                'category' => 'OUT',
+                'date' => now(),
+                'time' => now(),
+                'datetime' => now(),
+                'status' => 'ABSENT',
+            ]);
         }
     }
 
     public function indexOut()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'OUT')->get();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'OUT')->where('status', '!=', 'ABSENT')->get();
 
         return view('pages.absence.index-out', [
             'students' => $students,
@@ -149,8 +149,8 @@ class AbsenceController extends Controller
 
             try {
                 DB::transaction(function () use ($student, $status) {
-                    Absence::create([
-                        'student_id' => $student->id,
+                    $latestAbsence = $student->absences()->where('category', 'OUT')->latest()->first();
+                    $latestAbsence->update([
                         'date' => now(),
                         'time' => now(),
                         'datetime' => now(),
@@ -225,7 +225,7 @@ class AbsenceController extends Controller
 
     public function getAbsencesByDate()
     {
-        $absences = Absence::where('category', 'IN')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
+        $absences = Absence::where('category', 'IN')->where('status', '!=', 'ABSENT')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
 
         return response()->json($absences);
     }

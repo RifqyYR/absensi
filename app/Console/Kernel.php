@@ -14,8 +14,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-            app()->make('App\Http\Controllers\AbsenceController')->notAbsence();
-        })->dailyAt('08:31')->timezone('Asia/Singapore');
+            app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
+        })->dailyAt('05:00')->timezone('Asia/Singapore');
     }
 
     /**
