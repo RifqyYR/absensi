@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
-        })->everyTenSeconds();
+        })->dailyAt('05:00')->timezone('Asia/Singapore');
     }
 
     /**
