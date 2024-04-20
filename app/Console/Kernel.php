@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Http\Controllers\AbsenceController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,9 +12,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        // $schedule->call(function () {
+        //     app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
+        // })->dailyAt('05:00')->timezone('Asia/Singapore');
         $schedule->call(function () {
             app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
-        })->dailyAt('05:00')->timezone('Asia/Singapore');
+        })->everyTenSeconds();  
+        $schedule->call(function () {
+            app()->make('App\Http\Controllers\StudentController')->deleteByGeneration();
+        })->yearlyOn(6, 1);
     }
 
     /**

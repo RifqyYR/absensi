@@ -38,6 +38,9 @@ $(document).ready(function () {
         success: function (data) {
             let labels = [];
             let counts = [];
+            let lateCounts = [];
+            let notPresentCounts = [];
+
             let monthNames = [
                 "Januari",
                 "Februari",
@@ -54,8 +57,19 @@ $(document).ready(function () {
             ];
 
             let countsByDate = {};
-            for (let item of data) {
+            let lateCountsByDate = {};
+            let notPresentCountsByDate = {};
+
+            for (let item of data[0]) {
                 countsByDate[item.date] = item.count;
+            }
+
+            for (let item of data[1]) {
+                lateCountsByDate[item.date] = item.count;
+            }
+
+            for (let item of data[2]) {
+                notPresentCountsByDate[item.date] = item.count;
             }
 
             for (let i = 6; i >= 0; i--) {
@@ -66,6 +80,8 @@ $(document).ready(function () {
 
                 labels.push(`${d.getDate()} ${monthNames[d.getMonth()]}`);
                 counts.push(countsByDate[dateString] || 0);
+                lateCounts.push(lateCountsByDate[dateString] || 0);
+                notPresentCounts.push(notPresentCountsByDate[dateString] || 0);
             }
 
             var ctx = document.getElementById("myAreaChart");
@@ -75,19 +91,49 @@ $(document).ready(function () {
                     labels: labels,
                     datasets: [
                         {
-                            label: "Kehadiran",
+                            label: "Tepat Waktu",
                             lineTension: 0.3,
                             backgroundColor: "rgba(78, 115, 223, 0.05)",
-                            borderColor: "#FC6736",
+                            borderColor: "#1cc88a",
                             pointRadius: 3,
-                            pointBackgroundColor: "#FC6736",
-                            pointBorderColor: "#FC6736",
+                            pointBackgroundColor: "#1cc88a",
+                            pointBorderColor: "#1cc88a",
                             pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "#FC6736",
-                            pointHoverBorderColor: "#FC6736",
+                            pointHoverBackgroundColor: "#1cc88a",
+                            pointHoverBorderColor: "#1cc88a",
                             pointHitRadius: 10,
                             pointBorderWidth: 2,
                             data: counts,
+                        },
+                        {
+                            label: "Terlambat",
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(220, 53, 69, 0.05)",
+                            borderColor: "#dc3545",
+                            pointRadius: 3,
+                            pointBackgroundColor: "#dc3545",
+                            pointBorderColor: "#dc3545",
+                            pointHoverRadius: 3,
+                            pointHoverBackgroundColor: "#dc3545",
+                            pointHoverBorderColor: "#dc3545",
+                            pointHitRadius: 10,
+                            pointBorderWidth: 2,
+                            data: lateCounts,
+                        },
+                        {
+                            label: "Tidak Absen",
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(220, 53, 69, 0.05)",
+                            borderColor: "#f6c23e",
+                            pointRadius: 3,
+                            pointBackgroundColor: "#f6c23e",
+                            pointBorderColor: "#f6c23e",
+                            pointHoverRadius: 3,
+                            pointHoverBackgroundColor: "#f6c23e",
+                            pointHoverBorderColor: "#f6c23e",
+                            pointHitRadius: 10,
+                            pointBorderWidth: 2,
+                            data: notPresentCounts,
                         },
                     ],
                 },

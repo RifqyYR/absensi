@@ -84,22 +84,24 @@ class AbsenceController extends Controller
         $students = Student::all();
 
         foreach ($students as $student) {
-            Absence::create([
-                'student_id' => $student->id,
-                'category' => 'IN',
-                'date' => now(),
-                'time' => now(),
-                'datetime' => now(),
-                'status' => 'ABSENT',
-            ]);
-            Absence::create([
-                'student_id' => $student->id,
-                'category' => 'OUT',
-                'date' => now(),
-                'time' => now(),
-                'datetime' => now(),
-                'status' => 'ABSENT',
-            ]);
+            if (now()->dayName != 'Minggu') {
+                Absence::create([
+                    'student_id' => $student->id,
+                    'category' => 'IN',
+                    'date' => now(),
+                    'time' => null,
+                    'datetime' => now(),
+                    'status' => 'ABSENT',
+                ]);
+                Absence::create([
+                    'student_id' => $student->id,
+                    'category' => 'OUT',
+                    'date' => now(),
+                    'time' => null,
+                    'datetime' => now(),
+                    'status' => 'ABSENT',
+                ]);
+            }
         }
     }
 
@@ -225,8 +227,10 @@ class AbsenceController extends Controller
 
     public function getAbsencesByDate()
     {
-        $absences = Absence::where('category', 'IN')->where('status', '!=', 'ABSENT')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
+        $absencesPresent = Absence::where('category', 'IN')->where('status', 'PRESENT')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
+        $absencesLate = Absence::where('category', 'IN')->where('status', 'LATE')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
+        $notPresent = Absence::where('category', 'IN')->where('status', 'ABSENT')->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(created_at)'))->get();
 
-        return response()->json($absences);
+        return response()->json([$absencesPresent, $absencesLate, $notPresent]);
     }
 }

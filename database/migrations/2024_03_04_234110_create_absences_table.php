@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('student_id');
             $table->date('date');
-            $table->time('time');
+            $table->time('time')->nullable();
             $table->dateTime('datetime');
             $table->enum('category', ["IN", "OUT"])->default('IN');
             $table->enum('status', ["PRESENT", "LATE", "ABSENT", "PERMIT"])->default('ABSENT');
