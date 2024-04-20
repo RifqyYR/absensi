@@ -81,7 +81,7 @@ class StudentController extends Controller
         Storage::disk('local')->put($output_file, $image);
     }
 
-    public function delete(String $uuid)
+    public function delete(string $uuid)
     {
         try {
             $student = Student::where('uuid', $uuid)->first();
@@ -101,7 +101,7 @@ class StudentController extends Controller
         }
     }
 
-    public function edit(String $uuid)
+    public function edit(string $uuid)
     {
         $student = Student::where('uuid', $uuid)->first();
         $parents = StudentParent::all();
@@ -111,7 +111,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function editProcess(Request $request, String $uuid)
+    public function editProcess(Request $request, string $uuid)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -146,7 +146,7 @@ class StudentController extends Controller
         }
     }
 
-    public function detail(String $uuid)
+    public function detail(string $uuid)
     {
         $student = Student::where('uuid', $uuid)->first();
         return view('pages.student.detail', [
@@ -178,18 +178,20 @@ class StudentController extends Controller
         }
     }
 
-    public function violationHistory(String $uuid)
+    public function violationHistory(string $uuid)
     {
         $student = Student::where('uuid', $uuid)->first();
-        $violations = Violation::with('violationPoint')->where('student_id', $student->id)->get();
-        
+        $violations = Violation::with('violationPoint')
+            ->where('student_id', $student->id)
+            ->get();
+
         return view('pages.student.violation-history', [
             'student' => $student,
             'violations' => $violations,
         ]);
     }
 
-    public function deleteViolationHistory(String $uuid)
+    public function deleteViolationHistory(string $uuid)
     {
         try {
             $violation = Violation::where('uuid', $uuid)->first();
@@ -204,10 +206,14 @@ class StudentController extends Controller
             });
 
             if ($student->violation_points == 0) {
-                return redirect()->route('student-data.detail', ['uuid' => $student->uuid])->with('success', 'Berhasil menghapus data');
+                return redirect()
+                    ->route('student-data.detail', ['uuid' => $student->uuid])
+                    ->with('success', 'Berhasil menghapus data');
             }
-            
-            return redirect()->route('student-data.violation-history', ['uuid' => $student->uuid])->with('success', 'Berhasil menghapus data');
+
+            return redirect()
+                ->route('student-data.violation-history', ['uuid' => $student->uuid])
+                ->with('success', 'Berhasil menghapus data');
         } catch (\Throwable $e) {
             return redirect()
                 ->back()
@@ -219,5 +225,17 @@ class StudentController extends Controller
     {
         $students = Student::all();
         return view('pages.student.print-all-id-card', compact('students'));
+    }
+
+    public function deleteByGeneration()
+    {
+        $generation = now()->subYears(4);
+        DB::transaction(function () use ($generation) {
+            Student::where('generation', $generation)->each(function ($student) {
+                $student->absences()->delete();
+                $student->parent()->delete();
+                $student->delete();
+            });
+        });
     }
 }
