@@ -41,5 +41,8 @@
         $('.select2').select2({
             width: '100%'
         });
+        $('form').on('submit', function() {
+            $('button[type=submit]').prop('disabled', true);
+        });
     });
 </script>

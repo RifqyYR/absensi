@@ -10,6 +10,7 @@ use App\Models\ViolationPoint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -69,7 +70,7 @@ class StudentController extends Controller
 
     public function generateQR($uuid, $generation)
     {
-        $image = QrCode::format('png')->size(320)->generate($uuid);
+        $image = QrCode::format('png')->size(120)->generate($uuid);
 
         $output_dir = 'public/qrcodes/' . $generation;
         if (!Storage::disk('local')->exists($output_dir)) {
@@ -229,13 +230,16 @@ class StudentController extends Controller
 
     public function deleteByGeneration()
     {
-        $generation = now()->subYears(4);
+        $generation = now()->subYears(3)->year;
         DB::transaction(function () use ($generation) {
             Student::where('generation', $generation)->each(function ($student) {
                 $student->absences()->delete();
-                $student->parent()->delete();
                 $student->delete();
             });
+            StudentParent::doesntHave('students')->delete();
+            if (Storage::disk('local')->exists('public/qrcodes/' . $generation)) {
+                Storage::disk('local')->deleteDirectory('public/qrcodes/' . $generation);
+            }
         });
     }
 }

@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $students = Student::all();
         $todayAbsences = Absence::where('category', 'IN')->where('status', '!=', 'ABSENT')->whereDate('datetime', now())->get();
-        
+
         return view('pages.home', [
             'students' => $students,
             'absences' => $todayAbsences,
@@ -42,16 +42,22 @@ class HomeController extends Controller
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
-        $file = $request->file('file');
-        $filename = rand(). '-' . $file->getClientOriginalName();
-        $file->move('uploads', $filename);
+        try {
+            $file = $request->file('file');
+            $filename = rand() . '-' . $file->getClientOriginalName();
+            $file->move('uploads', $filename);
 
-        Excel::import(new ImportParentData, public_path('uploads/'.$filename));
-        
-        if (file_exists(public_path('uploads/'.$filename))) {
-            unlink(public_path('uploads/'.$filename));
+            Excel::import(new ImportParentData(), public_path('uploads/' . $filename));
+
+            if (file_exists(public_path('uploads/' . $filename))) {
+                unlink(public_path('uploads/' . $filename));
+            }
+
+            return redirect()->back()->with('success', 'Data berhasil diimport');
+        } catch (\Exception $e) {
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Terdapat NISN yang duplikat pada data excel');
+            }
         }
-
-        return redirect()->back()->with('success', 'Data berhasil diimport');
     }
 }
