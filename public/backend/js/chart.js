@@ -79,6 +79,7 @@ $(document).ready(function () {
                 let dateString = formatDate(d);
 
                 labels.push(`${d.getDate()} ${monthNames[d.getMonth()]}`);
+                
                 counts.push(countsByDate[dateString] || 0);
                 lateCounts.push(lateCountsByDate[dateString] || 0);
                 notPresentCounts.push(notPresentCountsByDate[dateString] || 0);

@@ -12,15 +12,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->call(function () {
-        //     app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
-        // })->dailyAt('05:00')->timezone('Asia/Singapore');
+        $schedule->command('app:generate-q-r-codes')->everyTenSeconds();
         $schedule->call(function () {
             app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
-        })->everyTenSeconds();  
+        })->dailyAt('05:00')->timezone('Asia/Singapore');
         $schedule->call(function () {
             app()->make('App\Http\Controllers\StudentController')->deleteByGeneration();
-        })->yearlyOn(6, 1);
+        })->yearlyOn(8, 1);
     }
 
     /**
