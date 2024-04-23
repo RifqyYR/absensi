@@ -156,12 +156,8 @@ class ApiController extends Controller
             return $loggedInUser;
         }
 
-        if (!isset($data['new_password']) || !isset($data['confirm_new_password'])) {
+        if (!isset($data['new_password'])) {
             return new StudenParentResource(false, 400, 'Data tidak lengkap', null);
-        }
-
-        if ($data['new_password'] != $data['confirm_new_password']) {
-            return new StudenParentResource(false, 400, 'Password baru dan konfirmasi password tidak sama', null);
         }
 
         $user = StudentParent::find($loggedInUser->id);

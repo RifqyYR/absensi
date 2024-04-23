@@ -133,9 +133,9 @@ class AbsenceController extends Controller
             $currentHour = $currentTime->hour;
             $currentMinute = $currentTime->minute;
 
-            if ($currentHour < 16 || ($currentHour == 16 && $currentMinute < 30)) {
-                return redirect()->route('absence.out')->with('error', 'Absensi hanya dapat dilakukan setelah pukul 16:30');
-            }
+            // if ($currentHour < 16 || ($currentHour == 16 && $currentMinute < 30)) {
+            //     return redirect()->route('absence.out')->with('error', 'Absensi hanya dapat dilakukan setelah pukul 16:30');
+            // }
 
             $alreadyPresent = Absence::where('student_id', $student->id)
                 ->whereDate('date', now())

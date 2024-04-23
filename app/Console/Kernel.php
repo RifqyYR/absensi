@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:generate-q-r-codes')->everyTenSeconds();
         $schedule->call(function () {
             app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
-        })->everyTenSeconds();
+        })->dailyAt('00:00')->timezone('Asia/Singapore');
         $schedule->call(function () {
             app()->make('App\Http\Controllers\StudentController')->deleteByGeneration();
         })->yearlyOn(8, 1);
