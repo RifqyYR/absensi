@@ -35,7 +35,7 @@ class ImportParentData implements ToModel, WithHeadingRow
                 'uuid' => Uuid::uuid4(),
                 'parent_id' => $parent->id,
                 'name' => $row['nama_siswa'],
-                'nisn' => $row['nisn'],
+                'nisn' => $row['nis'],
                 'generation' => $row['angkatan'],
                 'violation_points' => $row['poin_pelanggaran'],
                 'gender' => $row['jenis_kelamin'],

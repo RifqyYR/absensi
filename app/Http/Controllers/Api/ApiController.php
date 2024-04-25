@@ -88,6 +88,7 @@ class ApiController extends Controller
             $studentAbsences = Absence::with('student')
                 ->where('student_id', $student->id)
                 ->whereDate('datetime', now())
+                ->take(2)
                 ->get();
             $absences = $absences->push($studentAbsences);
         }
