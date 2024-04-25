@@ -80,6 +80,19 @@ class StudentController extends Controller
 
         $output_file = $output_dir . '/' . $uuid . '.png';
         Storage::disk('local')->put($output_file, $image);
+
+        chmod(storage_path('app/' . $output_file), 0644);
+    }
+
+    public function generateQRCron()
+    {
+        $students = Student::all();
+        foreach ($students as $student) {
+            $dir = 'public/qrcodes/' . $student->generation;
+            if (!Storage::disk('local')->exists($dir . '/' . $student->uuid . '.png')) {
+                $this->generateQR($student->uuid, $student->generation);
+            }
+        }
     }
 
     public function delete(string $uuid)
