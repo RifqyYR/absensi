@@ -38,7 +38,7 @@
                                 <p><strong>Nama:</strong> {{ $student->name }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>NISN:</strong> {{ $student->nisn }}</p>
+                                <p><strong>NIS:</strong> {{ $student->nisn }}</p>
                             </div>
                         </div>
                         <div class="row">

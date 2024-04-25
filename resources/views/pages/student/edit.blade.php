@@ -24,7 +24,7 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="nisn">NISN*</label>
+                            <label for="nisn">NIS*</label>
                             <input id="nisn" type="text"
                                 class="form-control @error('nisn') is-invalid @enderror" name="nisn"
                                 value="{{ $student->nisn }}" required autofocus />

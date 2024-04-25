@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         })->dailyAt('00:00')->timezone('Asia/Singapore');
         $schedule->call(function () {
             app()->make('App\Http\Controllers\StudentController')->deleteByGeneration();
-        })->yearlyOn(8, 1);
+        })->yearlyOn(5, 1);
     }
 
     /**
