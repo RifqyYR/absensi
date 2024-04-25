@@ -6,6 +6,7 @@ use App\Imports\ImportParentData;
 use App\Models\Absence;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller

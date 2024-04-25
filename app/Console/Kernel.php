@@ -12,7 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:generate-q-r-codes')->everyTenSeconds();
+        $schedule->call(function () {
+            app()->make('App\Http\Controllers\StudentController')->generateQRCron();
+        })->everyTenSeconds();
         $schedule->call(function () {
             app()->make('App\Http\Controllers\AbsenceController')->createAbsenceToday();
         })->dailyAt('00:00')->timezone('Asia/Singapore');
