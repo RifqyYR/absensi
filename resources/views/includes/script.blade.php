@@ -34,6 +34,17 @@
     @endif
 
     $(document).ready(function() {
+        var nameElement = document.getElementById('student-name');
+        var nameLength = nameElement.textContent.length;
+
+        if (nameLength > 30) {
+            nameElement.style.fontSize = '0.9rem';
+        } else if (nameLength > 20) {
+            nameElement.style.fontSize = '1.1rem';
+        } else {
+            nameElement.style.fontSize = '1.3rem';
+        }
+
         @if (Route::is('absence.in') || Route::is('absence.out'))
             setInterval(updateClock, 1000)
         @endif

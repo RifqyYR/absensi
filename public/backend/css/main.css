@@ -48,18 +48,30 @@
     font-weight: bold;
 }
 
+.print-only {
+    display: none;
+}
+
 @media print {
     body * {
         visibility: hidden;
     }
 
     .id-card,
-    .id-card * {
+    .id-card *,
+    .id-card-back,
+    .id-card-back * {
         visibility: visible;
     }
 
-    .id-card {
+    .id-card, .id-card-back {
         top: 5vh;
+        width: 20rem !important;
+        height: 31.3rem !important;
+    }
+
+    .print-only {
+        display: block;
     }
 }
 
@@ -92,7 +104,8 @@
 }
 
 .id-card {
-    width: 300px;
+    width: 450px;
+    height: 460px;
 }
 
 .header {
@@ -102,15 +115,10 @@
 }
 
 .background-top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    height: 50px;
-    background-image: url('../img/shape-top.svg');
+    height: 60px;
+    background-image: url("../img/shape-top.svg");
     background-size: cover;
-    background-position: center;
 }
 
 .school-name {
@@ -162,8 +170,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 250px;
-    background-image: url('../img/shape-bottom.svg');
+    height: 260px;
+    background-image: url("../img/shape-bottom.svg");
     background-size: cover;
     background-position: center;
 }
@@ -177,4 +185,33 @@
 .disabled-link {
     pointer-events: none;
     cursor: default;
+}
+
+.id-card-back {
+    width: 450px;
+    height: 460px;
+    background-image: url("../../logo-gray.png");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+}
+
+.id-card-back-body {
+    font-size: 0.7rem;
+}
+
+.id-card-back-sign {
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.sign {
+    position: absolute;
+    top: 1vh;
+    left: -5vw;
 }
