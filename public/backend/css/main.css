@@ -60,15 +60,21 @@
     .id-card,
     .id-card *,
     .id-card-back,
-    .id-card-back * {
+    .id-card-back *,
+    .id-card-all,
+    .id-card-all *,
+    .id-card-all-back,
+    .id-card-all-back * {
         visibility: visible;
     }
 
-    .id-card, .id-card-back {
+    .id-card, .id-card-back, .id-card-all, .id-card-all-back {
         top: 5vh;
         width: 20rem !important;
         height: 31.3rem !important;
     }
+
+
 
     .print-only {
         display: block;
@@ -105,6 +111,16 @@
 
 .id-card {
     width: 450px;
+    height: 460px;
+}
+
+.id-card-all {
+    width: 320px;
+    height: 460px;
+}
+
+.id-card-all-back {
+    width: 320px;
     height: 460px;
 }
 

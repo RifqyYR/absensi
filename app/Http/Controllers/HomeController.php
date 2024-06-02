@@ -56,6 +56,7 @@ class HomeController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil diimport');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             if ($e->getCode() == 23000) {
                 return redirect()->back()->with('error', 'Terdapat NISN yang duplikat pada data excel');
             }

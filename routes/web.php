@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Student
     Route::group(['prefix' => 'data-siswa'], function () {
         Route::get('/', [App\Http\Controllers\StudentController::class, 'index'])->name('student-data');
-        Route::get('/id-card-siswa', [App\Http\Controllers\StudentController::class, 'printAllIdCard'])->name('student-data.print-id-cards');
+        Route::post('/id-card-siswa', [App\Http\Controllers\StudentController::class, 'printAllIdCard'])->name('student-data.print-id-cards');
         Route::get('/detail/{uuid}', [App\Http\Controllers\StudentController::class, 'detail'])->name('student-data.detail');
         Route::get('/detail/riwayat-pelanggaran/{uuid}', [App\Http\Controllers\StudentController::class, 'violationHistory'])->name('student-data.violation-history');
         Route::get('/detail/riwayat-pelanggaran/hapus/{uuid}', [App\Http\Controllers\StudentController::class, 'deleteViolationHistory'])->name('student-data.violation-history.delete');

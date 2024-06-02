@@ -1,6 +1,12 @@
 @extends('layouts.main')
 
 @section('content')
+    @php
+        $addressParts = explode(',', $student->address);
+        $addressParts = array_map('trim', $addressParts);
+        $address = $addressParts[0];
+        $subdistrict = $addressParts[1];
+    @endphp
     <div class="container-fluid mb-4">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h4 mb-0 text-black">Detail Siswa</h1>
@@ -12,12 +18,13 @@
                     <div class="header background-top py-2" style="border-bottom: 1px solid black !important;">
                         <div class="d-flex justify-content-center align-items-center">
                             <div class="col-2 p-0">
-                                <img class="logo-img" width="40px" src="{{ url('logo.png') }}"
-                                    alt="School Logo">
+                                <img class="logo-img" width="40px" src="{{ url('logo.png') }}" alt="School Logo">
                             </div>
                             <div class="col-10 text-center lh-sm p-0">
-                                <span class="d-block fw-bold text-black" style="font-size: 0.75rem; white-space: nowrap">KEMENTERIAN AGAMA KABUPATEN BONE</span>
-                                <span class="d-block fw-bold text-black" style="font-size: 0.75rem">MADRASAH ALIYAH NEGERI 1 BONE</span>
+                                <span class="d-block fw-bold text-black"
+                                    style="font-size: 0.75rem; white-space: nowrap">KEMENTERIAN AGAMA KABUPATEN BONE</span>
+                                <span class="d-block fw-bold text-black" style="font-size: 0.75rem">MADRASAH ALIYAH NEGERI 1
+                                    BONE</span>
                                 <span class="d-block" style="font-size: 0.55rem; white-space: nowrap;">Jl. Letjen Sukawati
                                     Watampone, No. Telepon (0481) 21238</span>
                             </div>
@@ -25,8 +32,8 @@
                     </div>
                     <div class="info">
                         <span class="badge text-bg-success mb-4">KARTU SISWA</span>
-                        <h2 id="student-name" class="mb-0 mt-2 px-2">{{ $student->name }}</h2>
-                        <span>{{ $student->nisn }}</span>
+                        <h2 id="student-name" class="mb-0 mt-2 px-2 student-name">{{ $student->name }}</h2>
+                        <span>{{ $student->nis }}</span>
                     </div>
                     <div class="bottom">
                         <div class="background-bottom">
@@ -62,7 +69,7 @@
                                 Tempat Lahir
                             </div>
                             <div class="col-8">
-                                : Takalar
+                                : {{ $student->born_place }}
                             </div>
                         </div>
                         <div class="row">
@@ -78,15 +85,7 @@
                                 Alamat
                             </div>
                             <div class="col-8">
-                                : BTN Antang Raya Permai Blok G2 No. 1
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Kel./Desa
-                            </div>
-                            <div class="col-8">
-                                : Maccini
+                                : {{ $address }}
                             </div>
                         </div>
                         <div class="row">
@@ -94,7 +93,7 @@
                                 Kecamatan
                             </div>
                             <div class="col-8">
-                                : Makassar
+                                : {{ $subdistrict }}
                             </div>
                         </div>
                         <div class="row">
@@ -143,12 +142,20 @@
                                 <p><strong>Nama:</strong> {{ $student->name }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>NIS:</strong> {{ $student->nisn }}</p>
+                                <p><strong>NISN:</strong> {{ $student->nisn }}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <p><strong>NIS:</strong> {{ $student->nis }}</p>
+                            </div>
+                            <div class="col-md-6">
                                 <p><strong>Angkatan:</strong> {{ $student->generation }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Kelas:</strong> {{ $student->class }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Jenis Kelamin:</strong>
@@ -173,6 +180,9 @@
                             <div class="col-md-6">
                                 <p><strong>Poin Pelanggaran:</strong> {{ $student->violation_points }}</p>
                             </div>
+                        </div>
+                        <div class="row">
+                            <p><strong>Alamat:</strong> {{ $student->address }}</p>
                         </div>
 
                         <button class="btn btn-md btn-primary mt-4 me-2" onclick="window.print()">Print ID Card</button>

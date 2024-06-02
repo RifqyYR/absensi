@@ -34,15 +34,19 @@
     @endif
 
     $(document).ready(function() {
-        var nameElement = document.getElementById('student-name');
-        var nameLength = nameElement.textContent.length;
+        var nameElements = document.getElementsByClassName('student-name');
 
-        if (nameLength > 30) {
-            nameElement.style.fontSize = '0.9rem';
-        } else if (nameLength > 20) {
-            nameElement.style.fontSize = '1.1rem';
-        } else {
-            nameElement.style.fontSize = '1.3rem';
+        // Iterate through each element and get the text length
+        for (var i = 0; i < nameElements.length; i++) {
+            var textLength = nameElements[i].textContent.length;
+
+            if (textLength > 30) {
+                nameElements[i].style.fontSize = '0.9rem';
+            } else if (textLength > 20) {
+                nameElements[i].style.fontSize = '1.1rem';
+            } else {
+                nameElements[i].style.fontSize = '1.3rem';
+            }
         }
 
         @if (Route::is('absence.in') || Route::is('absence.out'))
