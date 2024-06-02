@@ -235,9 +235,9 @@ class StudentController extends Controller
         }
     }
 
-    public function printAllIdCard()
+    public function printAllIdCard(Request $request)
     {
-        $students = Student::all();
+        $students = Student::where('class', $request->class_id)->get();
         return view('pages.student.print-all-id-card', compact('students'));
     }
 

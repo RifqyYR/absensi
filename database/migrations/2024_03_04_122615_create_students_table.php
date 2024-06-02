@@ -16,11 +16,15 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('parent_id');
             $table->string('name');
+            $table->string('nis');
             $table->string('nisn')->unique();
             $table->integer('generation');
-            $table->integer('violation_points');
-            $table->enum('gender', ['L', 'P']);
+            $table->string('born_place');
             $table->date('born_date');
+            $table->enum('gender', ['L', 'P']);
+            $table->string('address');
+            $table->integer('violation_points');
+            $table->string('class');
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('student_parents')->onDelete('cascade');

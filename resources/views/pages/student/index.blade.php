@@ -1,6 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
+    @php
+        $classList = [];
+
+        foreach ($students as $student) {
+            $classList[] = $student['class'];
+        }
+
+        $uniqueClasses = array_unique($classList);
+    @endphp
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -9,9 +18,9 @@
                 <button type="button" data-toggle="modal" data-target="#studentViolationModal"
                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-orange"><i
                         class="fas fa-times-circle fa-sm text-white"></i> Form Pelanggaran</button>
-                <a href="{{ route('student-data.print-id-cards') }}"
+                <button data-toggle="modal" data-target="#printIdCardByClassModal" type="button"
                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm ms-1"><i
-                        class="fas fa-id-card fa-sm text-white"></i> Print Id Card</a>
+                        class="fas fa-id-card fa-sm text-white"></i> Print Id Card</button>
                 <a href="{{ route('student-data.create') }}"
                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-dark-blue ms-1"><i
                         class="fas fa-graduation-cap fa-sm text-white"></i> Tambah Data</a>
@@ -56,7 +65,7 @@
                                 <td>
                                     {{ $item->updated_at->format('d/m/Y H:i:s') }}
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <div class="d-flex flex-column">
                                         <div class="align-items-center d-grip gap-4 mx-auto">
                                             {{-- Edit Button --}}
@@ -176,6 +185,47 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                             id="btn-delete">Batal</button>
                         <button type="submit" class="btn btn-orange">Kirim</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- Print Id Card Class Modal --}}
+    <div class="modal fade" id="printIdCardByClassModal" tabindex="-1" role="dialog"
+        aria-labelledby="print-id-card-modal-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{ route('student-data.print-id-cards') }}" method="post">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="print-id-card-modal-label">Print Id Card Berdasarkan Kelas
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="class_id">Kelas</label>
+                            <select class="form-select select2 large-select2 @error('class_id') is-invalid @enderror"
+                                name="class_id" id="class_id">
+                                <option value="" selected disabled></option>
+                                @foreach ($uniqueClasses as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                            @error('class_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="btn-delete">Batal</button>
+                        <button type="submit" class="btn btn-primary">Pilih</button>
                     </div>
                 </div>
             </form>
