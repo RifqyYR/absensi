@@ -24,11 +24,21 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="nisn">NIS*</label>
-                            <input id="nisn" type="text"
-                                class="form-control @error('nisn') is-invalid @enderror" name="nisn"
-                                value="{{ $student->nisn }}" required autofocus />
+                            <label for="nisn">NISN*</label>
+                            <input id="nisn" type="text" class="form-control @error('nisn') is-invalid @enderror"
+                                name="nisn" value="{{ $student->nisn }}" required autofocus />
                             @error('nisn')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="nis">NIS*</label>
+                            <input id="nis" type="text" class="form-control @error('nis') is-invalid @enderror"
+                                name="nis" value="{{ $student->nis }}" required autofocus />
+                            @error('nis')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -48,6 +58,31 @@
                         </div>
 
                         <div class="form-group col-md-3">
+                            <label for="class">Kelas*</label>
+                            <input id="class" type="text" class="form-control @error('class') is-invalid @enderror"
+                                name="class" value="{{ $student->class }}" required autofocus />
+                            @error('class')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="born_place">Tempat Lahir*</label>
+                            <input id="born_place" type="text"
+                                class="form-control @error('born_place') is-invalid @enderror" name="born_place"
+                                value="{{ $student->born_place }}" required autofocus />
+                            @error('born_place')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-4">
                             <label for="born_date">Tanggal Lahir*</label>
                             <input id="born_date" type="date"
                                 class="form-control @error('born_date') is-invalid @enderror" name="born_date"
@@ -59,7 +94,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-md-3 mb-0">
+                        <div class="form-group col-md-4 mb-0">
                             <label for="gender">Jenis Kelamin*</label>
                             <div class="form-check py-1 px-0">
                                 <div class="form-check form-check-inline">
@@ -74,6 +109,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Alamat*</label>
+                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
+                            name="address" value="{{ $student->address }}" required autofocus />
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -98,8 +144,9 @@
 
                     <div class="form-group">
                         <label for="violation_points">Poin Pelanggaran</label>
-                        <input id="violation_points" type="number" class="form-control @error('violation_points') is-invalid @enderror"
-                            name="violation_points" value="{{ $student->violation_points }}" required autofocus />
+                        <input id="violation_points" type="number"
+                            class="form-control @error('violation_points') is-invalid @enderror" name="violation_points"
+                            value="{{ $student->violation_points }}" required autofocus />
                         @error('violation_points')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -107,7 +154,8 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-3" style="background-color: #0C2D57; border: #0C2D57">
+                    <button type="submit" class="btn btn-primary mt-3"
+                        style="background-color: #0C2D57; border: #0C2D57">
                         {{ __('Submit') }}
                     </button>
                 </form>

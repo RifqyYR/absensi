@@ -6,8 +6,8 @@
             @php
                 $addressParts = explode(',', $item->address);
                 $addressParts = array_map('trim', $addressParts);
-                $address = $addressParts[0];
-                $subdistrict = $addressParts[1];
+                $address = $addressParts[0] ?? '';
+                $subdistrict = $addressParts[1] ?? '';
             @endphp
             <div class="card id-card-all m-auto" style="page-break-after: always;">
                 <div class="header background-top py-2" style="border-bottom: 1px solid black !important;">

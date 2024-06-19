@@ -4,8 +4,8 @@
     @php
         $addressParts = explode(',', $student->address);
         $addressParts = array_map('trim', $addressParts);
-        $address = $addressParts[0];
-        $subdistrict = $addressParts[1];
+        $address = $addressParts[0] ?? '';
+        $subdistrict = $addressParts[1] ?? '';
     @endphp
     <div class="container-fluid mb-4">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
