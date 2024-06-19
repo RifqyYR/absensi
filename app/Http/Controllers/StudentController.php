@@ -52,11 +52,15 @@ class StudentController extends Controller
                     'uuid' => $uuid,
                     'name' => $data['name'],
                     'nisn' => $data['nisn'],
+                    'nis' => $data['nis'],
                     'generation' => $generation,
+                    'born_place' => $data['born_place'],
                     'born_date' => $born_date,
+                    'address' => $data['address'],
                     'parent_id' => $data['parent_id'],
                     'violation_points' => 0,
                     'gender' => $data['gender'],
+                    'class' => $data['class']
                 ]);
             });
 
@@ -130,9 +134,13 @@ class StudentController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'nisn' => 'required',
+            'nis' => 'required',
             'generation' => 'required',
+            'class' => 'required',
             'born_date' => 'required',
+            'born_place' => 'required',
             'parent_id' => 'required',
+            'address' => 'required',
             'gender' => 'required',
         ]);
 
@@ -145,8 +153,12 @@ class StudentController extends Controller
                 $student->update([
                     'name' => $data['name'],
                     'nisn' => $data['nisn'],
+                    'nis' => $data['nis'],
                     'generation' => $data['generation'],
+                    'class' => $data['class'],
                     'born_date' => $data['born_date'],
+                    'born_place' => $data['born_place'],
+                    'address' => $data['address'],
                     'parent_id' => $data['parent_id'],
                     'violation_points' => $data['violation_points'],
                 ]);
