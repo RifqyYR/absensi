@@ -17,8 +17,6 @@ class ImportParentData implements ToModel, WithHeadingRow, WithCalculatedFormula
     public function model(array $row)
     {
         set_time_limit(0);
-
-        $row['nomor_telepon'] = '0' . ltrim($row['nomor_telepon'], '0');
         
         if (empty($row['nama_orang_tua']) || empty($row['nomor_telepon'])) {
             return null;
