@@ -18,9 +18,11 @@ class ImportParentData implements ToModel, WithHeadingRow, WithCalculatedFormula
     {
         set_time_limit(0);
 
-        // if (empty($row['nomor_telepon'])) {
-        //     return;
-        // }
+        $row['nomor_telepon'] = '0' . ltrim($row['nomor_telepon'], '0');
+        
+        if (empty($row['nama_orang_tua']) || empty($row['nomor_telepon'])) {
+            return null;
+        }
 
         $parent = StudentParent::firstOrCreate(
             ['phone_number' => $row['nomor_telepon']],
