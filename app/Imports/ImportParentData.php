@@ -4,12 +4,10 @@ namespace App\Imports;
 
 use App\Models\Student;
 use App\Models\StudentParent;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Ramsey\Uuid\Uuid;
 
 class ImportParentData implements ToModel, WithHeadingRow, WithCalculatedFormulas

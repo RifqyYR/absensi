@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportAbsence;
 use App\Models\Absence;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsenceController extends Controller
 {
@@ -232,5 +234,11 @@ class AbsenceController extends Controller
         $notPresent = Absence::where('category', 'IN')->where('status', 'ABSENT')->select(DB::raw('DATE(date) as date'), DB::raw('count(*) as count'))->groupBy(DB::raw('DATE(date)'))->get();
 
         return response()->json([$absencesPresent, $absencesLate, $notPresent]);
+    }
+
+    public function exportAbsenceData(Request $request)
+    {
+        $date = array_keys($request->query())[0];
+        return Excel::download(new ExportAbsence($date), 'absensi.xlsx');
     }
 }

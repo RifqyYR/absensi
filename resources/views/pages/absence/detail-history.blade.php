@@ -12,6 +12,9 @@
             <form action="{{ route('absence-history.update') }}" method="post">
                 @csrf
                 <div class="text-end">
+                    <a href="{{ route('absence-data.export', request()->route()->parameters['date']) }}"
+                        class="btn btn-sm btn-success mb-2"><i class="fas fa-file-export fa-sm text-white"></i> Export
+                        Data</a>
                     <button class="btn btn-sm btn-primary mb-2 btn-dark-blue" type="button" id="btnUpdateStatus" disabled
                         data-toggle="modal" data-target="#updateAbsenceDataModal">Update
                         Status</button>
@@ -59,7 +62,7 @@
                                     @if ($item->category == 'IN')
                                         Masuk
                                     @else
-                                        Pulang                                        
+                                        Pulang
                                     @endif
                                 </td>
                                 <td class="action-col">

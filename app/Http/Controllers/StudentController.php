@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportStudents;
+use App\Exports\ExportViolation;
 use App\Http\Requests\StoreStudentDataRequest;
 use App\Models\Student;
 use App\Models\StudentParent;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Ramsey\Uuid\Uuid;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -99,16 +102,26 @@ class StudentController extends Controller
         }
     }
 
-    public function delete(string $uuid)
+    public function delete(Request $request)
     {
         try {
-            $student = Student::where('uuid', $uuid)->first();
+            if (empty($request->ids)) {
+                return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+            }
 
-            DB::transaction(function () use ($student) {
-                if (Storage::exists('/public/qrcodes/' . $student->generation . '/' . $student->uuid . '.png')) {
-                    Storage::delete('/public/qrcodes/' . $student->generation . '/' . $student->uuid . '.png');
+            DB::transaction(function () use ($request) {
+                foreach ($request->ids as $id) {
+                    $student = Student::find($id);
+            
+                    if ($student) {
+                        $qrcodePath = '/public/qrcodes/' . $student->generation . '/' . $student->uuid . '.png';
+                        if (Storage::exists($qrcodePath)) {
+                            Storage::delete($qrcodePath);
+                        }
+
+                        $student->delete();
+                    }
                 }
-                $student->delete();
             });
 
             return redirect()->route('student-data')->with('success', 'Berhasil menghapus data');
@@ -266,5 +279,15 @@ class StudentController extends Controller
                 Storage::disk('local')->deleteDirectory('public/qrcodes/' . $generation);
             }
         });
+    }
+
+    public function exportStudentData()
+    {
+        return Excel::download(new ExportStudents, 'data-siswa.xlsx');
+    }
+
+    public function exportViolationData()
+    {
+        return Excel::download(new ExportViolation, 'pelanggaran-siswa.xlsx');
     }
 }
