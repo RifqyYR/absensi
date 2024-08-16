@@ -49,6 +49,9 @@ function toggleCheckbox(event, id) {
         var isChecked = Array.prototype.slice
             .call(checkboxes)
             .some((x) => x.checked);
-        document.getElementById("btnUpdateStatus").disabled = !isChecked;
+        var updateButton = document.getElementById("btnUpdateStatus");
+        if (updateButton) {
+            updateButton.disabled = !isChecked;
+        }
     }
 }

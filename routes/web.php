@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AbsenceController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,8 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/tambah', [App\Http\Controllers\StudentController::class, 'store'])->name('student-data.store');
         Route::get('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student-data.edit');
         Route::post('/edit/{uuid}', [App\Http\Controllers\StudentController::class, 'editProcess'])->name('student-data.edit-process');
-        Route::get('/hapus/{uuid}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student-data.delete');
-
+        Route::post('/hapus', [App\Http\Controllers\StudentController::class, 'delete'])->name('student-data.delete');
     });
 
     // Absence
@@ -71,6 +72,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Import Excel
     Route::post('/import', [App\Http\Controllers\HomeController::class, 'importExcel'])->name('import');
+
+    Route::get('/export-data-siswa', [StudentController::class, 'exportStudentData'])->name('student-data.export');
+
+    Route::get('/export-data-absen', [AbsenceController::class, 'exportAbsenceData'])->name('absence-data.export');
+
+    Route::get('/export-data-pelanggaran', [StudentController::class, 'exportViolationData'])->name('violation-data.export');
 
     // User Management
     Route::group(['prefix' => 'user'], function () {

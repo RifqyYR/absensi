@@ -115,7 +115,7 @@
                         <div class="col-7">
                             <img src="{{ url('sign.png') }}" class="sign" width="180px">
                             <div class="id-card-back-sign fw-bold lh-sm">
-                                Bone, 01 Mei 2024
+                                Bone, 17 Juli 2024
                                 <br>
                                 Kepala MAN 1 Bone
                                 <br>
