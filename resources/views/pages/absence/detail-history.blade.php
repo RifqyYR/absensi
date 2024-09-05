@@ -27,6 +27,7 @@
                             <th>Waktu</th>
                             <th>Status</th>
                             <th>Kategori</th>
+                            <th>Kelas</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -37,6 +38,7 @@
                             <th>Waktu</th>
                             <th>Status</th>
                             <th>Kategori</th>
+                            <th>Kelas</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -64,6 +66,9 @@
                                     @else
                                         Pulang
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $item->student->class }}
                                 </td>
                                 <td class="action-col">
                                     <div class="d-flex flex-column align-items-center">

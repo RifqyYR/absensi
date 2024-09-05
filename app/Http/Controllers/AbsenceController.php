@@ -15,7 +15,7 @@ class AbsenceController extends Controller
     {
         $students = Student::all();
         $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->where('status', 
-        '!=', 'ABSENT')->get();
+        '!=', 'ABSENT')->orderBy('datetime', 'desc')->get();
 
         return view('pages.absence.index-in', [
             'students' => $students,
@@ -110,7 +110,7 @@ class AbsenceController extends Controller
     public function indexOut()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'OUT')->where('status', '!=', 'ABSENT')->get();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'OUT')->where('status', '!=', 'ABSENT')->orderBy('datetime', 'desc')->get();
 
         return view('pages.absence.index-out', [
             'students' => $students,
