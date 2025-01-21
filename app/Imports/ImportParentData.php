@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Student;
 use App\Models\StudentParent;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
@@ -15,7 +16,7 @@ class ImportParentData implements ToModel, WithHeadingRow, WithCalculatedFormula
     public function model(array $row)
     {
         set_time_limit(0);
-        
+
         if (empty($row['nama_orang_tua']) || empty($row['nomor_telepon'])) {
             return null;
         }
@@ -37,7 +38,7 @@ class ImportParentData implements ToModel, WithHeadingRow, WithCalculatedFormula
             'nisn' => $row['nisn'],
             'generation' => $row['angkatan'],
             'born_place' => $row['tempat_lahir'],
-            'born_date' => new \DateTime($row['tanggal_lahir']),
+            'born_date' => $this->transformDate($row['tanggal_lahir']),
             'gender' => $row['jenis_kelamin'],
             'address' => $row['alamat'],
             'violation_points' => $row['poin_pelanggaran'] == "" ? 0 : $row['poin_pelanggaran'],
@@ -47,5 +48,16 @@ class ImportParentData implements ToModel, WithHeadingRow, WithCalculatedFormula
         ];
 
         Student::create($studentData);
+    }
+
+    private function transformDate($value)
+    {
+        // Check if the value is numeric (Excel's serial date format)
+        if (is_numeric($value)) {
+            return Date::excelToDateTimeObject($value)->format('Y-m-d');
+        }
+
+        // Otherwise, return the value as is (e.g., already in 'Y-m-d' format)
+        return $value;
     }
 }
