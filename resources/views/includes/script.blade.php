@@ -53,6 +53,9 @@
             setInterval(updateClock, 1000)
         @endif
         $('#dataTable').DataTable();
+        $('#historyDataTable').DataTable({
+            ordering: false
+        });
         $('.select2').select2({
             width: '100%'
         });
