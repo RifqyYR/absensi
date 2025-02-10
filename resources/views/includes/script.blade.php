@@ -52,7 +52,9 @@
         @if (Route::is('absence.in') || Route::is('absence.out'))
             setInterval(updateClock, 1000)
         @endif
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            ordering: false,
+        });
         $('.select2').select2({
             width: '100%'
         });

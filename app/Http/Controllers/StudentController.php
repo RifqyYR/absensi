@@ -12,8 +12,8 @@ use App\Models\ViolationPoint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Ramsey\Uuid\Uuid;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -93,12 +93,17 @@ class StudentController extends Controller
 
     public function generateQRCron()
     {
-        $students = Student::all();
-        foreach ($students as $student) {
-            $dir = 'public/qrcodes/' . $student->generation;
-            if (!Storage::disk('local')->exists($dir . '/' . $student->uuid . '.png')) {
-                $this->generateQR($student->uuid, $student->generation);
+        try {
+            $students = Student::all();
+            foreach ($students as $student) {
+                $dir = 'public/qrcodes/' . $student->generation;
+                if (!Storage::disk('local')->exists($dir . '/' . $student->uuid . '.png')) {
+                    $this->generateQR($student->uuid, $student->generation);
+                }
             }
+            dd($students);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
         }
     }
 
@@ -112,7 +117,7 @@ class StudentController extends Controller
             DB::transaction(function () use ($request) {
                 foreach ($request->ids as $id) {
                     $student = Student::find($id);
-            
+
                     if ($student) {
                         $qrcodePath = '/public/qrcodes/' . $student->generation . '/' . $student->uuid . '.png';
                         if (Storage::exists($qrcodePath)) {

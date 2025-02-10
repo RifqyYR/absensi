@@ -21,6 +21,7 @@ Auth::routes(['reset' => false, 'register' => false]);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/data-absensi', [App\Http\Controllers\AbsenceController::class, 'getAbsencesByDate'])->name('home.absences');
+    Route::get('/generate-qr-code', [StudentController::class, 'generateQrCron'])->name('home.qr-code');
 
     // Parent
     Route::group(['prefix' => 'data-orang-tua'], function () {

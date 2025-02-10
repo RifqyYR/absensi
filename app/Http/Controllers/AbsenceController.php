@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ExportAbsence;
 use App\Models\Absence;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -14,8 +15,11 @@ class AbsenceController extends Controller
     public function indexIn()
     {
         $students = Student::all();
-        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->where('status', 
-        '!=', 'ABSENT')->orderBy('datetime', 'desc')->get();
+        $todayAbsences = Absence::whereDate('datetime', now())->where('category', 'IN')->where(
+            'status',
+            '!=',
+            'ABSENT'
+        )->orderBy('datetime', 'desc')->get();
 
         return view('pages.absence.index-in', [
             'students' => $students,
@@ -176,11 +180,14 @@ class AbsenceController extends Controller
 
     public function history()
     {
-        $absences = Absence::with('student')
-            ->selectRaw('date(datetime) as date, category, student_id')
-            ->orderBy('datetime', 'desc')
+        $today = Carbon::today()->toDateString();
+
+        $absences = Absence::selectRaw('date(datetime) as date')
+            ->orderByRaw("CASE WHEN date(datetime) = ? THEN 0 ELSE 1 END, date(datetime) DESC", [$today])
             ->get()
-            ->groupBy(['date', 'category']);
+            ->unique('date')
+            ->pluck('date')
+            ->values();
 
         return view('pages.absence.history', [
             'absences' => $absences,
