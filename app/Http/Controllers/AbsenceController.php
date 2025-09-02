@@ -66,12 +66,21 @@ class AbsenceController extends Controller
             try {
                 DB::transaction(function () use ($student, $status) {
                     $latestAbsence = $student->absences()->where('category', 'IN')->latest()->first();
-                    $latestAbsence->update([
-                        'date' => now(),
-                        'time' => now(),
-                        'datetime' => now(),
-                        'status' => $status,
-                    ]);
+                    if ($latestAbsence) {
+                        $latestAbsence->update([
+                            'date' => now(),
+                            'time' => now(),
+                            'datetime' => now(),
+                            'status' => $status,
+                        ]);
+                    } else {
+                        $student->absences()->create([
+                            'date' => now(),
+                            'time' => now(),
+                            'datetime' => now(),
+                            'status' => $status,
+                        ]);
+                    }
                 });
 
                 return redirect()->route('absence.in')->with('success', 'Berhasil melakukan absensi');
@@ -158,13 +167,23 @@ class AbsenceController extends Controller
             try {
                 DB::transaction(function () use ($student, $status) {
                     $latestAbsence = $student->absences()->where('category', 'OUT')->latest()->first();
-                    $latestAbsence->update([
-                        'date' => now(),
-                        'time' => now(),
-                        'datetime' => now(),
-                        'status' => $status,
-                        'category' => 'OUT',
-                    ]);
+                    if ($latestAbsence) {
+                        $latestAbsence->update([
+                            'date' => now(),
+                            'time' => now(),
+                            'datetime' => now(),
+                            'status' => $status,
+                            'category' => 'OUT',
+                        ]);
+                    } else {
+                        $student->absences()->create([
+                            'date' => now(),
+                            'time' => now(),
+                            'datetime' => now(),
+                            'status' => $status,
+                            'category' => 'OUT',
+                        ]);
+                    }
                 });
 
                 return redirect()->route('absence.out')->with('success', 'Berhasil melakukan absensi');
